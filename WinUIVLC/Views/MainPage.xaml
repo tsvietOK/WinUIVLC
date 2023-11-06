@@ -76,20 +76,41 @@
                             <KeyboardAccelerator Key="Space" />
                         </AppBarButton.KeyboardAccelerators>
                     </AppBarButton>
+
                     <AppBarSeparator />
+
+                    <AppBarButton IsEnabled="False" Label="Previous">
+                        <AppBarButton.Icon>
+                            <FontIcon Glyph="&#xE892;" />
+                        </AppBarButton.Icon>
+                    </AppBarButton>
                     <AppBarButton IsEnabled="False" Label="Rewind">
                         <AppBarButton.Icon>
                             <FontIcon Glyph="&#xEB9E;" />
                         </AppBarButton.Icon>
+                        <AppBarButton.KeyboardAccelerators>
+                            <KeyboardAccelerator Key="Left" />
+                        </AppBarButton.KeyboardAccelerators>
                     </AppBarButton>
+
                     <AppBarButton Command="{x:Bind ViewModel.StopCommand}"
                                   Icon="Stop"
                                   Label="Stop" />
+
                     <AppBarButton IsEnabled="False" Label="Fast forward">
                         <AppBarButton.Icon>
                             <FontIcon Glyph="&#xEB9D;" />
                         </AppBarButton.Icon>
+                        <AppBarButton.KeyboardAccelerators>
+                            <KeyboardAccelerator Key="Right" />
+                        </AppBarButton.KeyboardAccelerators>
                     </AppBarButton>
+                    <AppBarButton IsEnabled="False" Label="Next">
+                        <AppBarButton.Icon>
+                            <FontIcon Glyph="&#xE893;" />
+                        </AppBarButton.Icon>
+                    </AppBarButton>
+
                     <AppBarSeparator />
                     <AppBarButton Command="{x:Bind ViewModel.FullScreenCommand}"
                                   IsEnabled="False"
