@@ -1,20 +1,12 @@
-﻿using System.Windows.Input;
+using System.Windows.Input;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using LibVLCSharp.Platforms.Windows;
 using LibVLCSharp.Shared;
-using Microsoft.UI.Xaml;
-using Microsoft.UI.Xaml.Controls;
-using Microsoft.UI.Xaml.Data;
-using Microsoft.Windows.AppLifecycle;
-using Windows.Media.Protection.PlayReady;
 using Windows.Storage;
 using Windows.System;
-using Windows.UI.ViewManagement;
-using Windows.UI.WindowManagement;
 using WinUIVLC.Contracts.Services;
 using WinUIVLC.Contracts.ViewModels;
-using WinUIVLC.Services;
 using MediaPlayer = LibVLCSharp.Shared.MediaPlayer;
 
 namespace WinUIVLC.ViewModels;
