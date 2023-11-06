@@ -84,7 +84,7 @@
                             <FontIcon Glyph="&#xE892;" />
                         </AppBarButton.Icon>
                     </AppBarButton>
-                    <AppBarButton IsEnabled="False" Label="Rewind">
+                    <AppBarButton Command="{x:Bind ViewModel.RewindCommand}" Label="Rewind">
                         <AppBarButton.Icon>
                             <FontIcon Glyph="&#xEB9E;" />
                         </AppBarButton.Icon>
@@ -97,7 +97,7 @@
                                   Icon="Stop"
                                   Label="Stop" />
 
-                    <AppBarButton IsEnabled="False" Label="Fast forward">
+                    <AppBarButton Command="{x:Bind ViewModel.FastForwardCommand}" Label="Fast forward">
                         <AppBarButton.Icon>
                             <FontIcon Glyph="&#xEB9D;" />
                         </AppBarButton.Icon>

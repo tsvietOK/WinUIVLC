@@ -161,8 +161,20 @@ public partial class MainViewModel : ObservableRecipient, INavigationAware
         MuteCommand = new RelayCommand(Mute);
         ChangeProgressCommand = new RelayCommand<EventArgs>(ChangeProgress);
         FullScreenCommand = new RelayCommand(FullScreen);
+        RewindCommand = new RelayCommand(Rewind);
+        FastForwardCommand = new RelayCommand(FastForward);
 
         _dispatcherQueue = DispatcherQueue.GetForCurrentThread();
+    }
+
+    private void FastForward()
+    {
+        Player.Time += 10000;
+    }
+
+    private void Rewind()
+    {
+        Player.Time -= 10000;
     }
 
     ~MainViewModel()
