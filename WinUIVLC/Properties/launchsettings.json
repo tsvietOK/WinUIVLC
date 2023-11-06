@@ -1,0 +1,10 @@
+{
+  "profiles": {
+    "WinUIVLC (Package)": {
+      "commandName": "MsixPackage"
+    },
+    "WinUIVLC (Unpackaged)": {
+      "commandName": "Project"
+    }
+  }
+}
