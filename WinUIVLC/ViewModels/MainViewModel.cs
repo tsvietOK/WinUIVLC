@@ -244,7 +244,7 @@ public partial class MainViewModel : ObservableRecipient, INavigationAware
     {
         _dispatcherQueue.TryEnqueue(() =>
         {
-            PlayStatusIcon = "\uE768";
+            UpdatePlayIcon();
         });
     }
 
@@ -252,7 +252,7 @@ public partial class MainViewModel : ObservableRecipient, INavigationAware
     {
         _dispatcherQueue.TryEnqueue(() =>
         {
-            PlayStatusIcon = "\uE768";
+            UpdatePlayIcon();
         });
     }
 
@@ -260,8 +260,20 @@ public partial class MainViewModel : ObservableRecipient, INavigationAware
     {
         _dispatcherQueue.TryEnqueue(() =>
         {
-            PlayStatusIcon = "\uE769";
+            UpdatePlayIcon();
         });
+    }
+
+    private void UpdatePlayIcon()
+    {
+        if (Player.IsPlaying)
+        {
+            PlayStatusIcon = "\uE769";
+        }
+        else
+        {
+            PlayStatusIcon = "\uE768";
+        }
     }
 
     private void PlayPause()
