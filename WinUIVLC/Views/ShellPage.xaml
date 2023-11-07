@@ -35,10 +35,10 @@
                 TODO: Update item titles by updating <x:Uid>.Text entries in Strings/en-us/Resources.resw.
                 https://docs.microsoft.com/windows/uwp/app-resources/localize-strings-ui-manifest#refer-to-a-string-resource-identifier-from-xaml
                 -->
-                <MenuBarItem x:Uid="ShellMenuBarItem_File">
+                <MenuBarItem x:Uid="ShellMenuBarItem_File" IsTabStop="False">
                     <MenuFlyoutItem x:Uid="ShellMenuItem_File_Exit" Command="{x:Bind ViewModel.MenuFileExitCommand}" />
                 </MenuBarItem>
-                <MenuBarItem x:Uid="ShellMenuBarItem_Views">
+                <MenuBarItem x:Uid="ShellMenuBarItem_Views" IsTabStop="False">
                     <MenuBarItem.Items>
                         <MenuFlyoutItem x:Uid="ShellMenuItem_Views_Main" Command="{x:Bind ViewModel.MenuViewsMainCommand}" />
                     </MenuBarItem.Items>
