@@ -157,6 +157,8 @@ public partial class MainViewModel : ObservableRecipient, INavigationAware
         FullScreenCommand = new RelayCommand(FullScreen);
         RewindCommand = new RelayCommand(Rewind);
         FastForwardCommand = new RelayCommand(FastForward);
+        VolumeUpCommand = new RelayCommand(VolumeUp);
+        VolumeDownCommand = new RelayCommand(VolumeDown);
 
         _dispatcherQueue = DispatcherQueue.GetForCurrentThread();
     }
@@ -321,6 +323,23 @@ public partial class MainViewModel : ObservableRecipient, INavigationAware
         //}
     }
 
+
+    private void VolumeDown()
+    {
+        if (Volume >= 5)
+        {
+            Volume -= 5;
+        }
+    }
+
+    private void VolumeUp()
+    {
+        if (Volume <= 200)
+        {
+            Volume += 5;
+        }
+    }
+
     public ICommand InitializedCommand
     {
         get; set;
@@ -357,6 +376,16 @@ public partial class MainViewModel : ObservableRecipient, INavigationAware
     }
 
     public ICommand FastForwardCommand
+    {
+        get; set;
+    }
+
+    public ICommand VolumeUpCommand
+    {
+        get; set;
+    }
+
+    public ICommand VolumeDownCommand
     {
         get; set;
     }
