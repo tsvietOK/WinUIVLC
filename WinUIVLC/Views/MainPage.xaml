@@ -161,7 +161,7 @@
                         VerticalAlignment="Center"
                         Orientation="Horizontal"
                         Spacing="5">
-                <TextBlock VerticalAlignment="Center" Text="{x:Bind ViewModel.FilePath, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                <!--<TextBlock VerticalAlignment="Center" Text="{x:Bind ViewModel.FilePath, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />-->
                 <AppBarButton VerticalAlignment="Center"
                               Command="{x:Bind ViewModel.MuteCommand}"
                               LabelPosition="Collapsed">
