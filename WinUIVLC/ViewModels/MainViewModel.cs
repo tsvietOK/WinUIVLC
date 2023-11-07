@@ -15,6 +15,8 @@ public partial class MainViewModel : ObservableRecipient, INavigationAware
 {
     private readonly DispatcherQueue _dispatcherQueue;
     private readonly INavigationService _navigationService;
+    private const int rewindOffset = 10000;
+
     private LibVLC libVLC;
     private MediaPlayer mediaPlayer;
     private string elapsedTimeString = "--:--:--";
@@ -161,12 +163,12 @@ public partial class MainViewModel : ObservableRecipient, INavigationAware
 
     private void FastForward()
     {
-        Player.Time += 10000;
+        Player.Time += rewindOffset;
     }
 
     private void Rewind()
     {
-        Player.Time -= 10000;
+        Player.Time -= rewindOffset;
     }
 
     ~MainViewModel()
@@ -333,7 +335,6 @@ public partial class MainViewModel : ObservableRecipient, INavigationAware
     {
         get; set;
     }
-
 
     public ICommand MuteCommand
     {
