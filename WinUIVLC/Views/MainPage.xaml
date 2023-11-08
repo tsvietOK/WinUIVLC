@@ -14,6 +14,12 @@
             <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
 
+        <interactivity:Interaction.Behaviors>
+            <interactions:EventTriggerBehavior EventName="PointerWheelChanged">
+                <interactions:InvokeCommandAction Command="{x:Bind ViewModel.ScrollChangedCommand}" />
+            </interactions:EventTriggerBehavior>
+        </interactivity:Interaction.Behaviors>
+
         <lvs:VideoView x:Name="VideoView"
                        Grid.Row="0"
                        HorizontalAlignment="Stretch"

@@ -3,6 +3,7 @@ using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using LibVLCSharp.Platforms.Windows;
 using LibVLCSharp.Shared;
+using Microsoft.UI.Xaml.Input;
 using Windows.Storage;
 using Windows.System;
 using WinUIVLC.Contracts.Services;
@@ -159,6 +160,7 @@ public partial class MainViewModel : ObservableRecipient, INavigationAware
         FastForwardCommand = new RelayCommand(FastForward);
         VolumeUpCommand = new RelayCommand(VolumeUp);
         VolumeDownCommand = new RelayCommand(VolumeDown);
+        ScrollChangedCommand = new RelayCommand<PointerRoutedEventArgs>(ScrollChanged);
 
         _dispatcherQueue = DispatcherQueue.GetForCurrentThread();
     }
@@ -340,6 +342,19 @@ public partial class MainViewModel : ObservableRecipient, INavigationAware
         }
     }
 
+    private void ScrollChanged(PointerRoutedEventArgs args)
+    {
+        var delta = args.GetCurrentPoint(null).Properties.MouseWheelDelta;
+        if (delta > 0)
+        {
+            VolumeUp();
+        }
+        else
+        {
+            VolumeDown();
+        }
+    }
+
     public ICommand InitializedCommand
     {
         get; set;
@@ -386,6 +401,11 @@ public partial class MainViewModel : ObservableRecipient, INavigationAware
     }
 
     public ICommand VolumeDownCommand
+    {
+        get; set;
+    }
+
+    public ICommand ScrollChangedCommand
     {
         get; set;
     }
