@@ -109,15 +109,6 @@ public partial class MainViewModel : ObservableRecipient, INavigationAware
             if (SetProperty(ref volume, value))
             {
                 Player.Volume = value;
-
-                if (volume == 0)
-                {
-                    VolumeIcon = "\uE74F";
-                }
-                else
-                {
-                    VolumeIcon = "\uE767";
-                }
             }
         }
     }
@@ -209,6 +200,7 @@ public partial class MainViewModel : ObservableRecipient, INavigationAware
         {
             //Volume = (int)e.Volume;
             //OnPropertyChanged(nameof(Volume));
+            UpdateVolumeIcon();
         });
 
     }
@@ -260,6 +252,30 @@ public partial class MainViewModel : ObservableRecipient, INavigationAware
         {
             UpdatePlayIcon();
         });
+    }
+
+    private void UpdateVolumeIcon()
+    {
+        if (volume == 0)
+        {
+            VolumeIcon = "\uE74F";
+        }
+        else if (volume > 0 && volume <= 25)
+        {
+            VolumeIcon = "\uE992";
+        }
+        else if (volume > 25 && volume <= 50)
+        {
+            VolumeIcon = "\uE993";
+        }
+        else if (volume > 50 && volume <= 75)
+        {
+            VolumeIcon = "\uE994";
+        }
+        else
+        {
+            VolumeIcon = "\uE767";
+        }
     }
 
     private void UpdatePlayIcon()
