@@ -8,6 +8,7 @@ public class ObservableMediaPlayerWrapper : ObservableObject
 {
     private readonly MediaPlayer _player;
     private readonly DispatcherQueue _dispatcherQueue;
+    private int previousVolume;
 
     public ObservableMediaPlayerWrapper(MediaPlayer player, DispatcherQueue dispatcherQueue)
     {
@@ -18,6 +19,11 @@ public class ObservableMediaPlayerWrapper : ObservableObject
             OnPropertyChanged(nameof(TimeLong));
             OnPropertyChanged(nameof(TimeString));
         });
+
+        _player.VolumeChanged += (sender, time) => _dispatcherQueue.TryEnqueue(() =>
+        {
+            OnPropertyChanged(nameof(Volume));
+        });
     }
 
     public long TimeLong
@@ -27,4 +33,39 @@ public class ObservableMediaPlayerWrapper : ObservableObject
     }
 
     public string TimeString => TimeSpan.FromMilliseconds(TimeLong).ToString(@"hh\:mm\:ss");
+
+    public int Volume
+    {
+        get => _player.Volume;
+        set => SetProperty(_player.Volume, value, _player, (u, n) => u.Volume = n);
+    }
+
+    public void VolumeUp()
+    {
+        if (Volume <= 200)
+        {
+            Volume += 5;
+        }
+    }
+
+    public void VolumeDown()
+    {
+        if (Volume >= 5)
+        {
+            Volume -= 5;
+        }
+    }
+
+    public void Mute()
+    {
+        if (Volume == 0)
+        {
+            Volume = previousVolume;
+        }
+        else
+        {
+            previousVolume = Volume;
+            Volume = 0;
+        }
+    }
 }

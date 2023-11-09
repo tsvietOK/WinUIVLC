@@ -195,7 +195,7 @@
                         SnapsTo="Ticks"
                         TickFrequency="5"
                         TickPlacement="Outside"
-                        Value="{x:Bind ViewModel.Volume, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                        Value="{x:Bind ViewModel.MediaPlayerWrapper.Volume, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
             </StackPanel>
 
         </Grid>

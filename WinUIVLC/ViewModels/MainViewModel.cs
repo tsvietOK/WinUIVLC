@@ -24,10 +24,8 @@ public partial class MainViewModel : ObservableRecipient, INavigationAware
     private MediaPlayer mediaPlayer;
     private string totalTimeString = "--:--:--";
     private string playStatusIcon = "\uE768";
-    private int volume;
     private double progress;
     private TimeSpan totalTime = new(0, 0, 0);
-    private int previousVolume;
     private double totalTimeSeconds;
     private string volumeIcon = "\uE767";
     private string filePath = "Empty";
@@ -87,18 +85,6 @@ public partial class MainViewModel : ObservableRecipient, INavigationAware
     {
         get => playStatusIcon;
         set => SetProperty(ref playStatusIcon, value);
-    }
-
-    public int Volume
-    {
-        get => volume;
-        set
-        {
-            if (SetProperty(ref volume, value))
-            {
-                Player.Volume = value;
-            }
-        }
     }
 
     public double Progress
@@ -177,7 +163,6 @@ public partial class MainViewModel : ObservableRecipient, INavigationAware
         var media = new Media(LibVLC, new Uri(FilePath));
         Player.Play(media);
         MediaPlayerWrapper = new ObservableMediaPlayerWrapper(Player, _dispatcherQueue);
-        Volume = Player.Volume;
 
         Player.Playing += Player_Playing;
         Player.Media.DurationChanged += Media_DurationChanged;
@@ -241,19 +226,19 @@ public partial class MainViewModel : ObservableRecipient, INavigationAware
 
     private void UpdateVolumeIcon()
     {
-        if (volume == 0)
+        if (MediaPlayerWrapper.Volume == 0)
         {
             VolumeIcon = "\uE74F";
         }
-        else if (volume > 0 && volume <= 25)
+        else if (MediaPlayerWrapper.Volume > 0 && MediaPlayerWrapper.Volume <= 25)
         {
             VolumeIcon = "\uE992";
         }
-        else if (volume > 25 && volume <= 50)
+        else if (MediaPlayerWrapper.Volume > 25 && MediaPlayerWrapper.Volume <= 50)
         {
             VolumeIcon = "\uE993";
         }
-        else if (volume > 50 && volume <= 75)
+        else if (MediaPlayerWrapper.Volume > 50 && MediaPlayerWrapper.Volume <= 75)
         {
             VolumeIcon = "\uE994";
         }
@@ -295,17 +280,7 @@ public partial class MainViewModel : ObservableRecipient, INavigationAware
 
     private void Mute()
     {
-        if (Volume == 0)
-        {
-            Volume = previousVolume;
-            //VolumeIcon = "\uE767";
-        }
-        else
-        {
-            previousVolume = Volume;
-            Volume = 0;
-            //VolumeIcon = "\uE74F";
-        }
+        MediaPlayerWrapper.Mute();
     }
 
     private void FullScreen()
@@ -324,18 +299,12 @@ public partial class MainViewModel : ObservableRecipient, INavigationAware
 
     private void VolumeDown()
     {
-        if (Volume >= 5)
-        {
-            Volume -= 5;
-        }
+        MediaPlayerWrapper.VolumeDown();
     }
 
     private void VolumeUp()
     {
-        if (Volume <= 200)
-        {
-            Volume += 5;
-        }
+        MediaPlayerWrapper.VolumeUp();
     }
 
     private void ScrollChanged(PointerRoutedEventArgs args)
@@ -343,11 +312,11 @@ public partial class MainViewModel : ObservableRecipient, INavigationAware
         var delta = args.GetCurrentPoint(null).Properties.MouseWheelDelta;
         if (delta > 0)
         {
-            VolumeUp();
+            MediaPlayerWrapper.VolumeUp();
         }
         else
         {
-            VolumeDown();
+            MediaPlayerWrapper.VolumeDown();
         }
     }
 
