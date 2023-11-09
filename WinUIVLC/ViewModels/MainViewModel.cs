@@ -24,7 +24,6 @@ public partial class MainViewModel : ObservableRecipient, INavigationAware
     private MediaPlayer mediaPlayer;
     private string totalTimeString = "--:--:--";
     private string playStatusIcon = "\uE768";
-    private double progress;
     private TimeSpan totalTime = new(0, 0, 0);
     private double totalTimeSeconds;
     private string volumeIcon = "\uE767";
@@ -85,18 +84,6 @@ public partial class MainViewModel : ObservableRecipient, INavigationAware
     {
         get => playStatusIcon;
         set => SetProperty(ref playStatusIcon, value);
-    }
-
-    public double Progress
-    {
-        get => progress;
-        set
-        {
-            if (SetProperty(ref progress, value))
-            {
-                //Player.Time = new TimeSpan(0, 0, (int)progress).Ticks;
-            }
-        }
     }
 
     public string VolumeIcon
