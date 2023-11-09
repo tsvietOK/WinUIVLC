@@ -40,6 +40,8 @@ public class ObservableMediaPlayerWrapper : ObservableObject
         set => SetProperty(_player.Volume, value, _player, (u, n) => u.Volume = n);
     }
 
+    public bool IsPlaying => _player.IsPlaying;
+
     public void VolumeUp()
     {
         if (Volume <= 200)
@@ -67,5 +69,22 @@ public class ObservableMediaPlayerWrapper : ObservableObject
             previousVolume = Volume;
             Volume = 0;
         }
+    }
+
+    public void PlayPause()
+    {
+        if (!IsPlaying)
+        {
+            _player.Play();
+        }
+        else
+        {
+            _player.Pause();
+        }
+    }
+
+    public void Stop()
+    {
+        _player.Stop();
     }
 }

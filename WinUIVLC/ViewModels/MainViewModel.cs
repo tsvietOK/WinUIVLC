@@ -237,7 +237,7 @@ public partial class MainViewModel : ObservableRecipient, INavigationAware
 
     private void UpdatePlayIcon()
     {
-        if (Player.IsPlaying)
+        if (MediaPlayerWrapper.IsPlaying)
         {
             PlayStatusIcon = "\uE769";
         }
@@ -249,20 +249,12 @@ public partial class MainViewModel : ObservableRecipient, INavigationAware
 
     private void PlayPause()
     {
-        if (!Player.IsPlaying)
-        {
-            Player.Play();
-        }
-        else
-        {
-            Player.Pause();
-        }
+        MediaPlayerWrapper?.PlayPause();
     }
 
     private void Stop()
     {
-        Player.Stop();
-        //MediaPlayer.Dispose();
+        MediaPlayerWrapper?.Stop();
     }
 
     private void Mute()
