@@ -18,7 +18,6 @@ public partial class MainViewModel : ObservableRecipient, INavigationAware
 {
     private readonly DispatcherQueue _dispatcherQueue;
     private readonly INavigationService _navigationService;
-    private const int rewindOffset = 10000;
 
     private LibVLC libVLC;
     private MediaPlayer mediaPlayer;
@@ -118,12 +117,12 @@ public partial class MainViewModel : ObservableRecipient, INavigationAware
 
     private void FastForward()
     {
-        MediaPlayerWrapper.TimeLong += rewindOffset;
+        MediaPlayerWrapper?.FastForward();
     }
 
     private void Rewind()
     {
-        MediaPlayerWrapper.TimeLong -= rewindOffset;
+        MediaPlayerWrapper?.Rewind();
     }
 
     ~MainViewModel()

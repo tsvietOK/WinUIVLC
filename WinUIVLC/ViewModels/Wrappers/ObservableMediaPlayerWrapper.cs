@@ -10,6 +10,8 @@ public class ObservableMediaPlayerWrapper : ObservableObject
     private readonly DispatcherQueue _dispatcherQueue;
     private int previousVolume;
 
+    private const int rewindOffset = 10000;
+
     public ObservableMediaPlayerWrapper(MediaPlayer player, DispatcherQueue dispatcherQueue)
     {
         _player = player;
@@ -86,5 +88,15 @@ public class ObservableMediaPlayerWrapper : ObservableObject
     public void Stop()
     {
         _player.Stop();
+    }
+
+    public void FastForward()
+    {
+        TimeLong += rewindOffset;
+    }
+
+    public void Rewind()
+    {
+        TimeLong -= rewindOffset;
     }
 }
