@@ -241,6 +241,9 @@
                     <AppBarButton.Icon>
                         <FontIcon Glyph="{x:Bind ViewModel.VolumeIcon, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
                     </AppBarButton.Icon>
+                    <Button.KeyboardAccelerators>
+                        <KeyboardAccelerator Key="M" />
+                    </Button.KeyboardAccelerators>
                 </AppBarButton>
                 <Slider Width="150"
                         VerticalAlignment="Center"
