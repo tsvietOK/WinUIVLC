@@ -1,12 +1,16 @@
 <Page x:Class="WinUIVLC.Views.MainPage"
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:converters="using:WinUIVLC.Converters"
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
       xmlns:interactions="using:Microsoft.Xaml.Interactions.Core"
       xmlns:interactivity="using:Microsoft.Xaml.Interactivity"
       xmlns:lvs="using:LibVLCSharp.Platforms.Windows"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
       mc:Ignorable="d">
+    <Page.Resources>
+        <converters:LongToDoubleConverter x:Key="LongToDoubleConverter" />
+    </Page.Resources>
 
     <Grid x:Name="ContentArea" VerticalAlignment="Stretch">
         <Grid.RowDefinitions>
@@ -47,26 +51,20 @@
             <TextBlock Grid.Column="0"
                        Margin="10,0,0,0"
                        VerticalAlignment="Center"
-                       Text="{x:Bind ViewModel.ElapsedTimeString, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                       Text="{x:Bind ViewModel.MediaPlayerWrapper.TimeString, Mode=OneWay, FallbackValue='--:--:--'}" />
             <Slider Grid.Row="0"
                     Grid.Column="1"
                     Margin="10,0"
                     VerticalAlignment="Center"
                     IsEnabled="True"
                     IsThumbToolTipEnabled="False"
-                    Maximum="{x:Bind ViewModel.TotalTimeSeconds, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                    Maximum="{x:Bind ViewModel.TotalTimeLong, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource LongToDoubleConverter}}"
                     Minimum="0"
-                    Value="{x:Bind ViewModel.ElapsedTimeSeconds, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
-                <!--<interactivity:Interaction.Behaviors>
-                    <interactions:EventTriggerBehavior EventName="ValueChanged">
-                        <interactions:InvokeCommandAction Command="{x:Bind ViewModel.ChangeProgressCommand}" />
-                    </interactions:EventTriggerBehavior>
-                </interactivity:Interaction.Behaviors>-->
-            </Slider>
+                    Value="{x:Bind ViewModel.MediaPlayerWrapper.TimeLong, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource LongToDoubleConverter}}" />
             <TextBlock Grid.Column="2"
                        Margin="0,0,10,0"
                        VerticalAlignment="Center"
-                       Text="{x:Bind ViewModel.TotalTimeString, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                       Text="{x:Bind ViewModel.TotalTimeString, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, FallbackValue='--:--:--'}" />
 
             <CommandBar Grid.Row="1"
                         Grid.Column="0"

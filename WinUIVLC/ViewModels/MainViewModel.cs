@@ -3,11 +3,13 @@ using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using LibVLCSharp.Platforms.Windows;
 using LibVLCSharp.Shared;
+using Microsoft.UI.Xaml.Controls.Primitives;
 using Microsoft.UI.Xaml.Input;
 using Windows.Storage;
-using Windows.System;
 using WinUIVLC.Contracts.Services;
 using WinUIVLC.Contracts.ViewModels;
+using WinUIVLC.ViewModels.Wrappers;
+using DispatcherQueue = Microsoft.UI.Dispatching.DispatcherQueue;
 using MediaPlayer = LibVLCSharp.Shared.MediaPlayer;
 
 namespace WinUIVLC.ViewModels;
@@ -20,18 +22,17 @@ public partial class MainViewModel : ObservableRecipient, INavigationAware
 
     private LibVLC libVLC;
     private MediaPlayer mediaPlayer;
-    private string elapsedTimeString = "--:--:--";
     private string totalTimeString = "--:--:--";
     private string playStatusIcon = "\uE768";
     private int volume;
     private double progress;
     private TimeSpan totalTime = new(0, 0, 0);
-    private TimeSpan elapsedTime = new(0, 0, 0);
     private int previousVolume;
-    private double elapsedTimeSeconds;
     private double totalTimeSeconds;
     private string volumeIcon = "\uE767";
     private string filePath = "Empty";
+    private long totalTimeLong;
+    private ObservableMediaPlayerWrapper mediaPlayerWrapper;
 
     private LibVLC LibVLC
     {
@@ -45,29 +46,16 @@ public partial class MainViewModel : ObservableRecipient, INavigationAware
         set => SetProperty(ref mediaPlayer, value);
     }
 
-    public TimeSpan ElapsedTime
+    public long TotalTimeLong
     {
-        get => elapsedTime;
+        get => totalTimeLong;
         set
         {
-            if (SetProperty(ref elapsedTime, value))
+            if (SetProperty(ref totalTimeLong, value))
             {
-                ElapsedTimeString = elapsedTime.ToString(@"hh\:mm\:ss");
-                ElapsedTimeSeconds = elapsedTime.TotalSeconds;
+                TotalTime = TimeSpan.FromMilliseconds(value);
             }
         }
-    }
-
-    public string ElapsedTimeString
-    {
-        get => elapsedTimeString;
-        set => SetProperty(ref elapsedTimeString, value);
-    }
-
-    public double ElapsedTimeSeconds
-    {
-        get => elapsedTimeSeconds;
-        set => SetProperty(ref elapsedTimeSeconds, value);
     }
 
     public TimeSpan TotalTime
@@ -145,7 +133,6 @@ public partial class MainViewModel : ObservableRecipient, INavigationAware
         PlayPauseCommand = new RelayCommand(PlayPause);
         StopCommand = new RelayCommand(Stop);
         MuteCommand = new RelayCommand(Mute);
-        ChangeProgressCommand = new RelayCommand<EventArgs>(ChangeProgress);
         FullScreenCommand = new RelayCommand(FullScreen);
         RewindCommand = new RelayCommand(Rewind);
         FastForwardCommand = new RelayCommand(FastForward);
@@ -158,17 +145,23 @@ public partial class MainViewModel : ObservableRecipient, INavigationAware
 
     private void FastForward()
     {
-        Player.Time += rewindOffset;
+        MediaPlayerWrapper.TimeLong += rewindOffset;
     }
 
     private void Rewind()
     {
-        Player.Time -= rewindOffset;
+        MediaPlayerWrapper.TimeLong -= rewindOffset;
     }
 
     ~MainViewModel()
     {
         Dispose();
+    }
+
+    public ObservableMediaPlayerWrapper MediaPlayerWrapper
+    {
+        get => mediaPlayerWrapper;
+        set => SetProperty(ref mediaPlayerWrapper, value);
     }
 
     private void Initialize(InitializedEventArgs eventArgs)
@@ -183,10 +176,10 @@ public partial class MainViewModel : ObservableRecipient, INavigationAware
 
         var media = new Media(LibVLC, new Uri(FilePath));
         Player.Play(media);
+        MediaPlayerWrapper = new ObservableMediaPlayerWrapper(Player, _dispatcherQueue);
         Volume = Player.Volume;
 
         Player.Playing += Player_Playing;
-        Player.TimeChanged += Player_TimeChanged;
         Player.Media.DurationChanged += Media_DurationChanged;
         Player.MediaChanged += Player_MediaChanged;
         Player.Paused += Player_Paused;
@@ -217,16 +210,8 @@ public partial class MainViewModel : ObservableRecipient, INavigationAware
     {
         _dispatcherQueue.TryEnqueue(() =>
         {
-            TotalTime = TimeSpan.FromMilliseconds(e.Duration);
-        });
-    }
-
-    private void Player_TimeChanged(object? sender, MediaPlayerTimeChangedEventArgs e)
-    {
-        var currentTime = e.Time;
-        _dispatcherQueue.TryEnqueue(() =>
-        {
-            ElapsedTime = TimeSpan.FromMilliseconds(currentTime);
+            //TotalTime = TimeSpan.FromMilliseconds(e.Duration);
+            TotalTimeLong = e.Duration;
         });
     }
 
@@ -321,11 +306,6 @@ public partial class MainViewModel : ObservableRecipient, INavigationAware
             Volume = 0;
             //VolumeIcon = "\uE74F";
         }
-    }
-
-    private void ChangeProgress(EventArgs e)
-    {
-
     }
 
     private void FullScreen()
