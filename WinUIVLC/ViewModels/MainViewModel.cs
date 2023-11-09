@@ -3,7 +3,6 @@ using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using LibVLCSharp.Platforms.Windows;
 using LibVLCSharp.Shared;
-using Microsoft.UI.Xaml.Controls.Primitives;
 using Microsoft.UI.Xaml.Input;
 using Windows.Storage;
 using WinUIVLC.Contracts.Services;
@@ -28,6 +27,29 @@ public partial class MainViewModel : ObservableRecipient, INavigationAware
     private string filePath = "Empty";
     private long totalTimeLong;
     private ObservableMediaPlayerWrapper mediaPlayerWrapper;
+
+    public MainViewModel(INavigationService navigationService)
+    {
+        _navigationService = navigationService;
+
+        InitializedCommand = new RelayCommand<InitializedEventArgs>(Initialize);
+        PlayPauseCommand = new RelayCommand(PlayPause);
+        StopCommand = new RelayCommand(Stop);
+        MuteCommand = new RelayCommand(Mute);
+        FullScreenCommand = new RelayCommand(FullScreen);
+        RewindCommand = new RelayCommand(Rewind);
+        FastForwardCommand = new RelayCommand(FastForward);
+        VolumeUpCommand = new RelayCommand(VolumeUp);
+        VolumeDownCommand = new RelayCommand(VolumeDown);
+        ScrollChangedCommand = new RelayCommand<PointerRoutedEventArgs>(ScrollChanged);
+
+        _dispatcherQueue = DispatcherQueue.GetForCurrentThread();
+    }
+
+    ~MainViewModel()
+    {
+        Dispose();
+    }
 
     private LibVLC LibVLC
     {
@@ -87,39 +109,6 @@ public partial class MainViewModel : ObservableRecipient, INavigationAware
     {
         get => filePath;
         set => SetProperty(ref filePath, value);
-    }
-
-    public MainViewModel(INavigationService navigationService)
-    {
-        _navigationService = navigationService;
-
-        InitializedCommand = new RelayCommand<InitializedEventArgs>(Initialize);
-        PlayPauseCommand = new RelayCommand(PlayPause);
-        StopCommand = new RelayCommand(Stop);
-        MuteCommand = new RelayCommand(Mute);
-        FullScreenCommand = new RelayCommand(FullScreen);
-        RewindCommand = new RelayCommand(Rewind);
-        FastForwardCommand = new RelayCommand(FastForward);
-        VolumeUpCommand = new RelayCommand(VolumeUp);
-        VolumeDownCommand = new RelayCommand(VolumeDown);
-        ScrollChangedCommand = new RelayCommand<PointerRoutedEventArgs>(ScrollChanged);
-
-        _dispatcherQueue = DispatcherQueue.GetForCurrentThread();
-    }
-
-    private void FastForward()
-    {
-        MediaPlayerWrapper?.FastForward();
-    }
-
-    private void Rewind()
-    {
-        MediaPlayerWrapper?.Rewind();
-    }
-
-    ~MainViewModel()
-    {
-        Dispose();
     }
 
     public ObservableMediaPlayerWrapper MediaPlayerWrapper
@@ -288,6 +277,16 @@ public partial class MainViewModel : ObservableRecipient, INavigationAware
         }
     }
 
+    private void FastForward()
+    {
+        MediaPlayerWrapper?.FastForward();
+    }
+
+    private void Rewind()
+    {
+        MediaPlayerWrapper?.Rewind();
+    }
+
     public ICommand InitializedCommand
     {
         get; set;
@@ -343,15 +342,6 @@ public partial class MainViewModel : ObservableRecipient, INavigationAware
         get; set;
     }
 
-    public void Dispose()
-    {
-        var mediaPlayer = Player;
-        Player = null;
-        mediaPlayer?.Dispose();
-        LibVLC?.Dispose();
-        LibVLC = null;
-    }
-
     public void OnNavigatedTo(object parameter)
     {
         if (parameter is IReadOnlyList<IStorageItem> fileList)
@@ -370,5 +360,14 @@ public partial class MainViewModel : ObservableRecipient, INavigationAware
         //Player.Paused -= Player_Paused;
         //Player.Stopped -= Player_Stopped;
         //Player.VolumeChanged -= Player_VolumeChanged;
+    }
+
+    public void Dispose()
+    {
+        var mediaPlayer = Player;
+        Player = null;
+        mediaPlayer?.Dispose();
+        LibVLC?.Dispose();
+        LibVLC = null;
     }
 }
