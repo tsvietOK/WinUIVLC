@@ -24,7 +24,6 @@ public partial class MainViewModel : ObservableRecipient, INavigationAware
     private string totalTimeString = "--:--:--";
     private string playStatusIcon = "\uE768";
     private TimeSpan totalTime = new(0, 0, 0);
-    private double totalTimeSeconds;
     private string volumeIcon = "\uE767";
     private string filePath = "Empty";
     private long totalTimeLong;
@@ -62,7 +61,6 @@ public partial class MainViewModel : ObservableRecipient, INavigationAware
             if (SetProperty(ref totalTime, value))
             {
                 TotalTimeString = totalTime.ToString(@"hh\:mm\:ss");
-                TotalTimeSeconds = totalTime.TotalSeconds;
             }
         }
     }
@@ -71,12 +69,6 @@ public partial class MainViewModel : ObservableRecipient, INavigationAware
     {
         get => totalTimeString;
         set => SetProperty(ref totalTimeString, value);
-    }
-
-    public double TotalTimeSeconds
-    {
-        get => totalTimeSeconds;
-        set => SetProperty(ref totalTimeSeconds, value);
     }
 
     public string PlayStatusIcon
