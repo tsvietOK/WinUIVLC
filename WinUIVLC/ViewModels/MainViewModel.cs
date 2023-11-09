@@ -5,8 +5,10 @@ using LibVLCSharp.Platforms.Windows;
 using LibVLCSharp.Shared;
 using Microsoft.UI.Xaml.Input;
 using Windows.Storage;
+using Windows.System;
 using WinUIVLC.Contracts.Services;
 using WinUIVLC.Contracts.ViewModels;
+using WinUIVLC.Models.Enums;
 using WinUIVLC.ViewModels.Wrappers;
 using DispatcherQueue = Microsoft.UI.Dispatching.DispatcherQueue;
 using MediaPlayer = LibVLCSharp.Shared.MediaPlayer;
@@ -37,8 +39,8 @@ public partial class MainViewModel : ObservableRecipient, INavigationAware
         StopCommand = new RelayCommand(Stop);
         MuteCommand = new RelayCommand(Mute);
         FullScreenCommand = new RelayCommand(FullScreen);
-        RewindCommand = new RelayCommand(Rewind);
-        FastForwardCommand = new RelayCommand(FastForward);
+        RewindCommand = new RelayCommand<KeyboardAcceleratorInvokedEventArgs>(Rewind);
+        FastForwardCommand = new RelayCommand<KeyboardAcceleratorInvokedEventArgs>(FastForward);
         VolumeUpCommand = new RelayCommand(VolumeUp);
         VolumeDownCommand = new RelayCommand(VolumeDown);
         ScrollChangedCommand = new RelayCommand<PointerRoutedEventArgs>(ScrollChanged);
@@ -277,14 +279,42 @@ public partial class MainViewModel : ObservableRecipient, INavigationAware
         }
     }
 
-    private void FastForward()
+    private void FastForward(KeyboardAcceleratorInvokedEventArgs args)
     {
-        MediaPlayerWrapper?.FastForward();
+        var modifier = args.KeyboardAccelerator.Modifiers;
+        switch (modifier)
+        {
+            case VirtualKeyModifiers.None:
+            case VirtualKeyModifiers.Menu://10s
+                MediaPlayerWrapper?.FastForward(RewindMode.Normal);
+                break;
+            case VirtualKeyModifiers.Control://60s
+                MediaPlayerWrapper?.FastForward(RewindMode.Long);
+                break;
+            case VirtualKeyModifiers.Shift://3s
+                MediaPlayerWrapper?.FastForward(RewindMode.Short);
+                break;
+        }
     }
 
-    private void Rewind()
+    private void Rewind(KeyboardAcceleratorInvokedEventArgs args)
     {
-        MediaPlayerWrapper?.Rewind();
+        var modifier = args.KeyboardAccelerator.Modifiers;
+        switch (modifier)
+        {
+            case VirtualKeyModifiers.None:
+            case VirtualKeyModifiers.Menu://10s
+                MediaPlayerWrapper?.Rewind(RewindMode.Normal);
+                break;
+            case VirtualKeyModifiers.Control://60s
+                MediaPlayerWrapper?.Rewind(RewindMode.Long);
+                break;
+            case VirtualKeyModifiers.Shift://3s
+                MediaPlayerWrapper?.Rewind(RewindMode.Short);
+                break;
+        }
+
+
     }
 
     public ICommand InitializedCommand

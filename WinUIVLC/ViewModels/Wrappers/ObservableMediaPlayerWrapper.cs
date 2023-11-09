@@ -1,4 +1,5 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
+using WinUIVLC.Models.Enums;
 using DispatcherQueue = Microsoft.UI.Dispatching.DispatcherQueue;
 using MediaPlayer = LibVLCSharp.Shared.MediaPlayer;
 
@@ -10,7 +11,9 @@ public class ObservableMediaPlayerWrapper : ObservableObject
     private readonly DispatcherQueue _dispatcherQueue;
     private int previousVolume;
 
-    private const int rewindOffset = 10000;
+    private const int rewindOffset10s = 10000;
+    private const int rewindOffset3s = 3000;
+    private const int rewindOffset60s = 60000;
 
     public ObservableMediaPlayerWrapper(MediaPlayer player, DispatcherQueue dispatcherQueue)
     {
@@ -90,13 +93,36 @@ public class ObservableMediaPlayerWrapper : ObservableObject
         _player.Stop();
     }
 
-    public void FastForward()
+    public void FastForward(RewindMode mode)
     {
-        TimeLong += rewindOffset;
+        switch (mode)
+        {
+            case RewindMode.Normal:
+                TimeLong += rewindOffset10s;
+                break;
+            case RewindMode.Short:
+                TimeLong += rewindOffset3s;
+                break;
+            case RewindMode.Long:
+                TimeLong += rewindOffset60s;
+                break;
+        }
+
     }
 
-    public void Rewind()
+    public void Rewind(RewindMode mode)
     {
-        TimeLong -= rewindOffset;
+        switch (mode)
+        {
+            case RewindMode.Normal:
+                TimeLong -= rewindOffset10s;
+                break;
+            case RewindMode.Short:
+                TimeLong -= rewindOffset3s;
+                break;
+            case RewindMode.Long:
+                TimeLong -= rewindOffset60s;
+                break;
+        }
     }
 }

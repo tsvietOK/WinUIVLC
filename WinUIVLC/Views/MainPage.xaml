@@ -88,12 +88,39 @@
                             <FontIcon Glyph="&#xE892;" />
                         </AppBarButton.Icon>
                     </AppBarButton>
-                    <AppBarButton Command="{x:Bind ViewModel.RewindCommand}" Label="Rewind">
+                    <AppBarButton Label="Rewind">
                         <AppBarButton.Icon>
                             <FontIcon Glyph="&#xEB9E;" />
                         </AppBarButton.Icon>
                         <AppBarButton.KeyboardAccelerators>
-                            <KeyboardAccelerator Key="Left" />
+                            <KeyboardAccelerator Key="Left">
+                                <interactivity:Interaction.Behaviors>
+                                    <interactions:EventTriggerBehavior EventName="Invoked">
+                                        <interactions:InvokeCommandAction Command="{x:Bind ViewModel.RewindCommand}" />
+                                    </interactions:EventTriggerBehavior>
+                                </interactivity:Interaction.Behaviors>
+                            </KeyboardAccelerator>
+                            <KeyboardAccelerator Key="Left" Modifiers="Control">
+                                <interactivity:Interaction.Behaviors>
+                                    <interactions:EventTriggerBehavior EventName="Invoked">
+                                        <interactions:InvokeCommandAction Command="{x:Bind ViewModel.RewindCommand}" />
+                                    </interactions:EventTriggerBehavior>
+                                </interactivity:Interaction.Behaviors>
+                            </KeyboardAccelerator>
+                            <KeyboardAccelerator Key="Left" Modifiers="Menu">
+                                <interactivity:Interaction.Behaviors>
+                                    <interactions:EventTriggerBehavior EventName="Invoked">
+                                        <interactions:InvokeCommandAction Command="{x:Bind ViewModel.RewindCommand}" />
+                                    </interactions:EventTriggerBehavior>
+                                </interactivity:Interaction.Behaviors>
+                            </KeyboardAccelerator>
+                            <KeyboardAccelerator Key="Left" Modifiers="Shift">
+                                <interactivity:Interaction.Behaviors>
+                                    <interactions:EventTriggerBehavior EventName="Invoked">
+                                        <interactions:InvokeCommandAction Command="{x:Bind ViewModel.RewindCommand}" />
+                                    </interactions:EventTriggerBehavior>
+                                </interactivity:Interaction.Behaviors>
+                            </KeyboardAccelerator>
                         </AppBarButton.KeyboardAccelerators>
                     </AppBarButton>
 
@@ -101,12 +128,39 @@
                                   Icon="Stop"
                                   Label="Stop" />
 
-                    <AppBarButton Command="{x:Bind ViewModel.FastForwardCommand}" Label="Fast forward">
+                    <AppBarButton Label="Fast forward">
                         <AppBarButton.Icon>
                             <FontIcon Glyph="&#xEB9D;" />
                         </AppBarButton.Icon>
                         <AppBarButton.KeyboardAccelerators>
-                            <KeyboardAccelerator Key="Right" />
+                            <KeyboardAccelerator Key="Right">
+                                <interactivity:Interaction.Behaviors>
+                                    <interactions:EventTriggerBehavior EventName="Invoked">
+                                        <interactions:InvokeCommandAction Command="{x:Bind ViewModel.FastForwardCommand}" />
+                                    </interactions:EventTriggerBehavior>
+                                </interactivity:Interaction.Behaviors>
+                            </KeyboardAccelerator>
+                            <KeyboardAccelerator Key="Right" Modifiers="Control">
+                                <interactivity:Interaction.Behaviors>
+                                    <interactions:EventTriggerBehavior EventName="Invoked">
+                                        <interactions:InvokeCommandAction Command="{x:Bind ViewModel.FastForwardCommand}" />
+                                    </interactions:EventTriggerBehavior>
+                                </interactivity:Interaction.Behaviors>
+                            </KeyboardAccelerator>
+                            <KeyboardAccelerator Key="Right" Modifiers="Menu">
+                                <interactivity:Interaction.Behaviors>
+                                    <interactions:EventTriggerBehavior EventName="Invoked">
+                                        <interactions:InvokeCommandAction Command="{x:Bind ViewModel.FastForwardCommand}" />
+                                    </interactions:EventTriggerBehavior>
+                                </interactivity:Interaction.Behaviors>
+                            </KeyboardAccelerator>
+                            <KeyboardAccelerator Key="Right" Modifiers="Shift">
+                                <interactivity:Interaction.Behaviors>
+                                    <interactions:EventTriggerBehavior EventName="Invoked">
+                                        <interactions:InvokeCommandAction Command="{x:Bind ViewModel.FastForwardCommand}" />
+                                    </interactions:EventTriggerBehavior>
+                                </interactivity:Interaction.Behaviors>
+                            </KeyboardAccelerator>
                         </AppBarButton.KeyboardAccelerators>
                     </AppBarButton>
                     <AppBarButton IsEnabled="False" Label="Next">
