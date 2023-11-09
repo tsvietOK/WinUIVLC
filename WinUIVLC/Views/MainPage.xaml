@@ -126,7 +126,11 @@
 
                     <AppBarButton Command="{x:Bind ViewModel.StopCommand}"
                                   Icon="Stop"
-                                  Label="Stop" />
+                                  Label="Stop">
+                        <Button.KeyboardAccelerators>
+                            <KeyboardAccelerator Key="S" />
+                        </Button.KeyboardAccelerators>
+                    </AppBarButton>
 
                     <AppBarButton Label="Fast forward">
                         <AppBarButton.Icon>
