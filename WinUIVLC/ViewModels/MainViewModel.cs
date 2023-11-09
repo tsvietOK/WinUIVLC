@@ -163,8 +163,6 @@ public partial class MainViewModel : ObservableRecipient, INavigationAware
     {
         _dispatcherQueue.TryEnqueue(() =>
         {
-            //Volume = (int)e.Volume;
-            //OnPropertyChanged(nameof(Volume));
             UpdateVolumeIcon();
         });
 
@@ -259,7 +257,7 @@ public partial class MainViewModel : ObservableRecipient, INavigationAware
 
     private void Mute()
     {
-        MediaPlayerWrapper.Mute();
+        MediaPlayerWrapper?.Mute();
     }
 
     private void FullScreen()
@@ -278,12 +276,12 @@ public partial class MainViewModel : ObservableRecipient, INavigationAware
 
     private void VolumeDown()
     {
-        MediaPlayerWrapper.VolumeDown();
+        MediaPlayerWrapper?.VolumeDown();
     }
 
     private void VolumeUp()
     {
-        MediaPlayerWrapper.VolumeUp();
+        MediaPlayerWrapper?.VolumeUp();
     }
 
     private void ScrollChanged(PointerRoutedEventArgs args)
@@ -291,11 +289,11 @@ public partial class MainViewModel : ObservableRecipient, INavigationAware
         var delta = args.GetCurrentPoint(null).Properties.MouseWheelDelta;
         if (delta > 0)
         {
-            MediaPlayerWrapper.VolumeUp();
+            MediaPlayerWrapper?.VolumeUp();
         }
         else
         {
-            MediaPlayerWrapper.VolumeDown();
+            MediaPlayerWrapper?.VolumeDown();
         }
     }
 
