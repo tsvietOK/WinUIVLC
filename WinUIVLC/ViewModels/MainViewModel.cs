@@ -19,6 +19,7 @@ public partial class MainViewModel : ObservableRecipient, INavigationAware
 {
     private readonly DispatcherQueue _dispatcherQueue;
     private readonly INavigationService _navigationService;
+    private readonly IWindowPresenterService _windowPresenterService;
 
     private LibVLC libVLC;
     private MediaPlayer mediaPlayer;
@@ -30,9 +31,10 @@ public partial class MainViewModel : ObservableRecipient, INavigationAware
     private long totalTimeLong;
     private ObservableMediaPlayerWrapper mediaPlayerWrapper;
 
-    public MainViewModel(INavigationService navigationService)
+    public MainViewModel(INavigationService navigationService, IWindowPresenterService windowPresenterService)
     {
         _navigationService = navigationService;
+        _windowPresenterService = windowPresenterService;
 
         InitializedCommand = new RelayCommand<InitializedEventArgs>(Initialize);
         PlayPauseCommand = new RelayCommand(PlayPause);
@@ -244,15 +246,7 @@ public partial class MainViewModel : ObservableRecipient, INavigationAware
 
     private void FullScreen()
     {
-        //var view = ApplicationView.GetForCurrentView();
-        //if (view.IsFullScreenMode)
-        //{
-        //    view.ExitFullScreenMode();
-        //}
-        //else
-        //{
-        //    view.TryEnterFullScreenMode();
-        //}
+        _windowPresenterService.ToggleFullScreen();
     }
 
 

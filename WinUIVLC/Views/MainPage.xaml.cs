@@ -1,14 +1,10 @@
-﻿using LibVLCSharp.Platforms.Windows;
-using LibVLCSharp.Shared;
-using Microsoft.UI.Xaml.Controls;
-using Microsoft.UI.Xaml.Data;
+﻿using Microsoft.UI.Xaml.Controls;
 using WinUIVLC.ViewModels;
 
 namespace WinUIVLC.Views;
 
 public sealed partial class MainPage : Page
 {
-
     public MainViewModel ViewModel
     {
         get;
@@ -19,5 +15,4 @@ public sealed partial class MainPage : Page
         ViewModel = App.GetService<MainViewModel>();
         InitializeComponent();
     }
-
 }

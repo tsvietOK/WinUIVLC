@@ -1,5 +1,5 @@
-﻿using Windows.UI.ViewManagement;
-
+﻿using Microsoft.UI.Windowing;
+using Windows.UI.ViewManagement;
 using WinUIVLC.Helpers;
 
 namespace WinUIVLC;

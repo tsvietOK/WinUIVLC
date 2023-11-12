@@ -174,9 +174,7 @@
                     </AppBarButton>
 
                     <AppBarSeparator />
-                    <AppBarButton Command="{x:Bind ViewModel.FullScreenCommand}"
-                                  IsEnabled="False"
-                                  Label="Fullscreen">
+                    <AppBarButton Command="{x:Bind ViewModel.FullScreenCommand}" Label="Fullscreen">
                         <AppBarButton.KeyboardAccelerators>
                             <KeyboardAccelerator Key="F" />
                         </AppBarButton.KeyboardAccelerators>

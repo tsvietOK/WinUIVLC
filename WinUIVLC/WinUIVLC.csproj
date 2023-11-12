@@ -22,6 +22,7 @@
   <ItemGroup>
     <PackageReference Include="CommunityToolkit.Mvvm" Version="8.1.0" />
     <PackageReference Include="CommunityToolkit.WinUI.Behaviors" Version="8.0.230907" />
+    <PackageReference Include="CommunityToolkit.WinUI.Converters" Version="8.0.230907" />
     <PackageReference Include="CommunityToolkit.WinUI.DeveloperTools" Version="8.0.230907" />
     <PackageReference Include="LibVLCSharp" Version="3.8.1" />
     <PackageReference Include="Microsoft.Extensions.Hosting" Version="6.0.1" />
