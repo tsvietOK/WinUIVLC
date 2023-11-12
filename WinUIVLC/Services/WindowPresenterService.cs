@@ -1,4 +1,3 @@
-﻿using CommunityToolkit.Mvvm.ComponentModel;
 using Microsoft.UI;
 using Microsoft.UI.Windowing;
 using WinRT.Interop;
@@ -6,7 +5,7 @@ using WinUIVLC.Contracts.Services;
 
 namespace WinUIVLC.Services;
 
-public class WindowPresenterService : ObservableObject, IWindowPresenterService
+public class WindowPresenterService : IWindowPresenterService
 {
     private readonly AppWindow _appWindow;
     private readonly WindowEx _window;
