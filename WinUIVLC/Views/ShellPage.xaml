@@ -25,7 +25,7 @@
                    Height="16"
                    Margin="8,0"
                    HorizontalAlignment="Left"
-                   Source="/Assets/WindowIcon.ico" />
+                   Source="/Assets/VLC_icon.ico" />
             <TextBlock x:Name="AppTitleBarText"
                        Margin="32,0,0,0"
                        VerticalAlignment="Center"
