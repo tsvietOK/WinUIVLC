@@ -1,4 +1,4 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <OutputType>WinExe</OutputType>
     <TargetFramework>net7.0-windows10.0.19041.0</TargetFramework>
@@ -20,7 +20,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="CommunityToolkit.Mvvm" Version="8.1.0" />
+    <PackageReference Include="CommunityToolkit.Mvvm" Version="8.2.2" />
     <PackageReference Include="CommunityToolkit.WinUI.Behaviors" Version="8.0.230907" />
     <PackageReference Include="CommunityToolkit.WinUI.Converters" Version="8.0.230907" />
     <PackageReference Include="CommunityToolkit.WinUI.DeveloperTools" Version="8.0.230907" />
