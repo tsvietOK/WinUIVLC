@@ -26,6 +26,7 @@
 
         <lvs:VideoView x:Name="VideoView"
                        Grid.Row="0"
+                       Grid.RowSpan="{x:Bind ViewModel.RowSpan, Mode=OneWay}"
                        HorizontalAlignment="Stretch"
                        VerticalAlignment="Stretch"
                        MediaPlayer="{x:Bind ViewModel.Player}">
@@ -36,7 +37,12 @@
             </interactivity:Interaction.Behaviors>
         </lvs:VideoView>
 
-        <Grid Grid.Row="1" VerticalAlignment="Center">
+        <Grid x:Name="Controls"
+              Grid.Row="1"
+              VerticalAlignment="Center"
+              Background="#50000000"
+              Opacity="{x:Bind ViewModel.ControlsOpacity, Mode=OneWay}">
+
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="Auto" />

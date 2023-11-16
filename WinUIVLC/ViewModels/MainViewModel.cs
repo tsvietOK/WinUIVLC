@@ -35,6 +35,7 @@ public partial class MainViewModel : ObservableRecipient, INavigationAware
     {
         _navigationService = navigationService;
         _windowPresenterService = windowPresenterService;
+        _windowPresenterService.WindowPresenterChanged += OnWindowPresenterChanged;
 
         InitializedCommand = new RelayCommand<InitializedEventArgs>(Initialize);
         PlayPauseCommand = new RelayCommand(PlayPause);
@@ -121,6 +122,12 @@ public partial class MainViewModel : ObservableRecipient, INavigationAware
         set => SetProperty(ref mediaPlayerWrapper, value);
     }
 
+    public bool IsNotFullScreen => !_windowPresenterService.IsFullScreen;
+
+    public double ControlsOpacity => _windowPresenterService.IsFullScreen ? 0 : 1;
+
+    public int RowSpan => _windowPresenterService.IsFullScreen ? 2 : 1;
+
     private void Initialize(InitializedEventArgs eventArgs)
     {
         LibVLC = new LibVLC(true, eventArgs.SwapChainOptions);
@@ -191,6 +198,13 @@ public partial class MainViewModel : ObservableRecipient, INavigationAware
         {
             UpdatePlayIcon();
         });
+    }
+
+    private void OnWindowPresenterChanged(object? sender, EventArgs e)
+    {
+        OnPropertyChanged(nameof(IsNotFullScreen));
+        OnPropertyChanged(nameof(ControlsOpacity));
+        OnPropertyChanged(nameof(RowSpan));
     }
 
     private void UpdateVolumeIcon()
