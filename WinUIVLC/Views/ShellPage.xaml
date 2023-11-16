@@ -24,8 +24,11 @@
             <Image Width="16"
                    Height="16"
                    Margin="8,0"
-                   HorizontalAlignment="Left"
-                   Source="/Assets/VLC_icon.ico" />
+                   HorizontalAlignment="Left">
+                <Image.Source>
+                    <BitmapImage DecodePixelWidth="32" UriSource="ms-appx:///Assets/VLC_icon.ico" />
+                </Image.Source>
+            </Image>
             <TextBlock x:Name="AppTitleBarText"
                        Margin="32,0,0,0"
                        VerticalAlignment="Center"
