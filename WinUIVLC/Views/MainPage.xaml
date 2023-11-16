@@ -23,6 +23,14 @@
                 <interactions:InvokeCommandAction Command="{x:Bind ViewModel.ScrollChangedCommand}" />
             </interactions:EventTriggerBehavior>
         </interactivity:Interaction.Behaviors>
+        <Image Height="70"
+               Margin="8"
+               HorizontalAlignment="Center"
+               VerticalAlignment="Center">
+            <Image.Source>
+                <BitmapImage DecodePixelWidth="70" UriSource="ms-appx:///Assets/VLC_icon.ico" />
+            </Image.Source>
+        </Image>
 
         <lvs:VideoView x:Name="VideoView"
                        Grid.Row="0"
