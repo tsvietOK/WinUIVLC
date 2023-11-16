@@ -29,6 +29,7 @@
                        Grid.RowSpan="{x:Bind ViewModel.RowSpan, Mode=OneWay}"
                        HorizontalAlignment="Stretch"
                        VerticalAlignment="Stretch"
+                       x:Load="{x:Bind ViewModel.LoadPlayer}"
                        MediaPlayer="{x:Bind ViewModel.Player}">
             <interactivity:Interaction.Behaviors>
                 <interactions:EventTriggerBehavior EventName="Initialized">

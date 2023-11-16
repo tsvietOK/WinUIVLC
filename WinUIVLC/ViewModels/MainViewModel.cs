@@ -128,6 +128,8 @@ public partial class MainViewModel : ObservableRecipient, INavigationAware
 
     public int RowSpan => _windowPresenterService.IsFullScreen ? 2 : 1;
 
+    public bool LoadPlayer => FilePath != "Empty";
+
     private void Initialize(InitializedEventArgs eventArgs)
     {
         LibVLC = new LibVLC(true, eventArgs.SwapChainOptions);
