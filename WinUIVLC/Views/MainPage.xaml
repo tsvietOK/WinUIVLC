@@ -43,6 +43,9 @@
                 <interactions:EventTriggerBehavior EventName="Initialized">
                     <interactions:InvokeCommandAction Command="{x:Bind ViewModel.InitializedCommand}" />
                 </interactions:EventTriggerBehavior>
+                <interactions:EventTriggerBehavior EventName="PointerMoved">
+                    <interactions:InvokeCommandAction Command="{x:Bind ViewModel.PointerMovedCommand}" />
+                </interactions:EventTriggerBehavior>
             </interactivity:Interaction.Behaviors>
         </lvs:VideoView>
 

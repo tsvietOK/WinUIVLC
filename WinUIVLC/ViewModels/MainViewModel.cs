@@ -3,6 +3,7 @@ using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using LibVLCSharp.Platforms.Windows;
 using LibVLCSharp.Shared;
+using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Input;
 using Windows.Storage;
 using Windows.System;
@@ -30,6 +31,12 @@ public partial class MainViewModel : ObservableRecipient, INavigationAware
     private string filePath = "Empty";
     private long totalTimeLong;
     private ObservableMediaPlayerWrapper mediaPlayerWrapper;
+    private Visibility controlsVisibility;
+
+    private readonly DispatcherTimer controlsHideTimer = new()
+    {
+        Interval = TimeSpan.FromSeconds(1),
+    };
 
     public MainViewModel(INavigationService navigationService, IWindowPresenterService windowPresenterService)
     {
@@ -47,6 +54,7 @@ public partial class MainViewModel : ObservableRecipient, INavigationAware
         VolumeUpCommand = new RelayCommand(VolumeUp);
         VolumeDownCommand = new RelayCommand(VolumeDown);
         ScrollChangedCommand = new RelayCommand<PointerRoutedEventArgs>(ScrollChanged);
+        PointerMovedCommand = new RelayCommand<PointerRoutedEventArgs>(PointerMoved);
 
         _dispatcherQueue = DispatcherQueue.GetForCurrentThread();
     }
@@ -124,7 +132,11 @@ public partial class MainViewModel : ObservableRecipient, INavigationAware
 
     public bool IsNotFullScreen => !_windowPresenterService.IsFullScreen;
 
-    public double ControlsOpacity => _windowPresenterService.IsFullScreen ? 0 : 1;
+    public Visibility ControlsVisibility
+    {
+        get => controlsVisibility;
+        set => SetProperty(ref controlsVisibility, value);
+    }
 
     public int RowSpan => _windowPresenterService.IsFullScreen ? 2 : 1;
 
@@ -202,11 +214,52 @@ public partial class MainViewModel : ObservableRecipient, INavigationAware
         });
     }
 
+    private void PointerMoved(PointerRoutedEventArgs? args)
+    {
+        if (_windowPresenterService.IsFullScreen)
+        {
+            ShowControls();
+            controlsHideTimer.Start();
+        }
+    }
+
+    private void Timer_Tick(object? sender, object e)
+    {
+        HideControls();
+        controlsHideTimer.Stop();
+    }
+
     private void OnWindowPresenterChanged(object? sender, EventArgs e)
     {
+        if (sender is not IWindowPresenterService windowPresenter)
+        {
+            return;
+        }
+
+        if (windowPresenter.IsFullScreen)
+        {
+            controlsHideTimer.Tick += Timer_Tick;
+        }
+        else
+        {
+            controlsHideTimer.Tick -= Timer_Tick;
+            controlsHideTimer.Stop();
+            ShowControls();
+        }
+
         OnPropertyChanged(nameof(IsNotFullScreen));
-        OnPropertyChanged(nameof(ControlsOpacity));
+        OnPropertyChanged(nameof(ControlsVisibility));
         OnPropertyChanged(nameof(RowSpan));
+    }
+
+    private void ShowControls()
+    {
+        ControlsVisibility = Visibility.Visible;
+    }
+
+    private void HideControls()
+    {
+        ControlsVisibility = Visibility.Collapsed;
     }
 
     private void UpdateVolumeIcon()
@@ -378,6 +431,11 @@ public partial class MainViewModel : ObservableRecipient, INavigationAware
     }
 
     public ICommand ScrollChangedCommand
+    {
+        get; set;
+    }
+
+    public ICommand PointerMovedCommand
     {
         get; set;
     }
