@@ -53,7 +53,7 @@
               Grid.Row="1"
               VerticalAlignment="Center"
               Background="{ThemeResource ControlsBackground}"
-              Opacity="{x:Bind ViewModel.ControlsOpacity, Mode=OneWay}">
+              Visibility="{x:Bind ViewModel.ControlsVisibility, Mode=OneWay}">
 
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto" />
