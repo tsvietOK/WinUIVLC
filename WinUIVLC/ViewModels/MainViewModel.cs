@@ -219,6 +219,7 @@ public partial class MainViewModel : ObservableRecipient, INavigationAware
         if (_windowPresenterService.IsFullScreen)
         {
             ShowControls();
+            controlsHideTimer.Stop();
             controlsHideTimer.Start();
         }
     }
