@@ -52,7 +52,7 @@
         <Grid x:Name="Controls"
               Grid.Row="1"
               VerticalAlignment="Center"
-              Background="#50000000"
+              Background="{ThemeResource ControlsBackground}"
               Opacity="{x:Bind ViewModel.ControlsOpacity, Mode=OneWay}">
 
             <Grid.RowDefinitions>
