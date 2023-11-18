@@ -208,6 +208,11 @@
                             <FontIcon Glyph="&#xF8A6;" />
                         </AppBarButton.Icon>
                     </AppBarButton>
+                    <AppBarButton IsEnabled="False" Label="Subtitles">
+                        <AppBarButton.Icon>
+                            <FontIcon Glyph="&#xED1E;" />
+                        </AppBarButton.Icon>
+                    </AppBarButton>
                     <AppBarSeparator />
                     <AppBarButton IsEnabled="False"
                                   Label="Effects"
