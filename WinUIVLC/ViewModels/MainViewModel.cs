@@ -451,8 +451,6 @@ public partial class MainViewModel : ObservableRecipient, INavigationAware
         {
             var filePath = fileList.First().Path;
             FilePath = filePath;
-
-            _log.Information("File Path: '{0}'", FilePath);
         }
     }
 

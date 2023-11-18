@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Microsoft.UI.Xaml;
 using Microsoft.Windows.AppLifecycle;
+using Serilog;
 using WinRT;
 using WinUIVLC.Contracts.Services;
 using WinUIVLC.ViewModels;
@@ -14,10 +15,12 @@ namespace WinUIVLC.Activation;
 public class FileActivationHandler : ActivationHandler<LaunchActivatedEventArgs>
 {
     private readonly INavigationService _navigationService;
+    private readonly ILogger _log;
 
-    public FileActivationHandler(INavigationService navigationService)
+    public FileActivationHandler(INavigationService navigationService, ILogger log)
     {
         _navigationService = navigationService;
+        _log = log;
     }
 
     protected override bool CanHandleInternal(LaunchActivatedEventArgs args)
@@ -28,8 +31,13 @@ public class FileActivationHandler : ActivationHandler<LaunchActivatedEventArgs>
 
     protected async override Task HandleInternalAsync(LaunchActivatedEventArgs args)
     {
+        _log.Information("Activation handled by {0}", typeof(FileActivationHandler));
+
         var eventArgs = AppInstance.GetCurrent().GetActivatedEventArgs();
-        _navigationService.NavigateTo(typeof(MainViewModel).FullName!, ((Windows.ApplicationModel.Activation.FileActivatedEventArgs)eventArgs.Data).Files);
+        var files = ((Windows.ApplicationModel.Activation.FileActivatedEventArgs)eventArgs.Data).Files;
+        _log.Information("Files list: {@Files}", files.Select(x=> x.Path));
+
+        _navigationService.NavigateTo(typeof(MainViewModel).FullName!, files);
 
         await Task.CompletedTask;
     }
