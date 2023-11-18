@@ -4,6 +4,7 @@ using Microsoft.UI.Xaml;
 
 using Serilog;
 using Serilog.Events;
+using Windows.ApplicationModel;
 using Windows.Storage;
 using WinUIVLC.Activation;
 using WinUIVLC.Contracts.Services;
