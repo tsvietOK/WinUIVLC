@@ -112,10 +112,19 @@ public partial class App : Application
     {
         base.OnLaunched(args);
 
-        Log.Information("Application Launched");
+        Log.Information("Application Launched, version {Version}", GetAppVersion());
 
         //App.GetService<IAppNotificationService>().Show(string.Format("AppNotificationSamplePayload".GetLocalized(), AppContext.BaseDirectory));
 
         await App.GetService<IActivationService>().ActivateAsync(args);
+    }
+
+    public static string GetAppVersion()
+    {
+        var package = Package.Current;
+        var packageId = package.Id;
+        var version = packageId.Version;
+
+        return string.Format("{0}.{1}.{2}.{3}", version.Major, version.Minor, version.Build, version.Revision);
     }
 }
