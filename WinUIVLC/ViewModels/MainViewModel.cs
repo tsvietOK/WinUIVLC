@@ -197,7 +197,6 @@ public partial class MainViewModel : ObservableRecipient, INavigationAware
     {
         _dispatcherQueue.TryEnqueue(() =>
         {
-            UpdatePlayIcon();
         });
     }
 
@@ -205,7 +204,6 @@ public partial class MainViewModel : ObservableRecipient, INavigationAware
     {
         _dispatcherQueue.TryEnqueue(() =>
         {
-            UpdatePlayIcon();
         });
     }
 
@@ -213,7 +211,6 @@ public partial class MainViewModel : ObservableRecipient, INavigationAware
     {
         _dispatcherQueue.TryEnqueue(() =>
         {
-            UpdatePlayIcon();
         });
     }
 
@@ -272,18 +269,6 @@ public partial class MainViewModel : ObservableRecipient, INavigationAware
     {
         ControlsVisibility = Visibility.Collapsed;
         _log.Information("Hiding controls");
-    }
-
-    private void UpdatePlayIcon()
-    {
-        if (MediaPlayerWrapper.IsPlaying)
-        {
-            PlayStatusIcon = "\uE769";
-        }
-        else
-        {
-            PlayStatusIcon = "\uE768";
-        }
     }
 
     private void PlayPause()

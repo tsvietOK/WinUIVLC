@@ -31,9 +31,24 @@ public class ObservableMediaPlayerWrapper : ObservableObject
             OnPropertyChanged(nameof(TimeString));
         });
 
-        _player.VolumeChanged += (sender, time) => _dispatcherQueue.TryEnqueue(() =>
+        _player.VolumeChanged += (sender, volumeArgs) => _dispatcherQueue.TryEnqueue(() =>
         {
             OnPropertyChanged(nameof(Volume));
+        });
+
+        _player.Playing += (sender, args) => _dispatcherQueue.TryEnqueue(() =>
+        {
+            OnPropertyChanged(nameof(IsPlaying));
+        });
+
+        _player.Paused += (sender, args) => _dispatcherQueue.TryEnqueue(() =>
+        {
+            OnPropertyChanged(nameof(IsPlaying));
+        });
+
+        _player.Stopped += (sender, args) => _dispatcherQueue.TryEnqueue(() =>
+        {
+            OnPropertyChanged(nameof(IsPlaying));
         });
     }
 

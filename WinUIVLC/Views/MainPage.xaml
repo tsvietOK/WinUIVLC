@@ -7,6 +7,7 @@
       xmlns:interactivity="using:Microsoft.Xaml.Interactivity"
       xmlns:lvs="using:LibVLCSharp.Platforms.Windows"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+      xmlns:usercontrols="using:WinUIVLC.UserControls"
       mc:Ignorable="d">
     <Page.Resources>
         <converters:LongToDoubleConverter x:Key="LongToDoubleConverter" />
@@ -90,14 +91,14 @@
                         HorizontalAlignment="Left"
                         DefaultLabelPosition="Collapsed">
                 <CommandBar.PrimaryCommands>
-                    <AppBarButton Command="{x:Bind ViewModel.PlayPauseCommand}" Label="Play">
-                        <AppBarButton.Icon>
-                            <FontIcon Glyph="{x:Bind ViewModel.PlayStatusIcon, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
-                        </AppBarButton.Icon>
+                    <usercontrols:AppBarPlaybackStateButton Command="{x:Bind ViewModel.PlayPauseCommand}"
+                                                            IsPlaying="{x:Bind ViewModel.MediaPlayerWrapper.IsPlaying, Mode=OneWay, FallbackValue=false}"
+                                                            Label="Play"
+                                                            Style="{StaticResource DefaultAppBarButtonStyle}">
                         <AppBarButton.KeyboardAccelerators>
                             <KeyboardAccelerator Key="Space" />
                         </AppBarButton.KeyboardAccelerators>
-                    </AppBarButton>
+                    </usercontrols:AppBarPlaybackStateButton>
 
                     <AppBarSeparator />
 
