@@ -85,8 +85,6 @@ public partial class App : Application
 
             // Configuration
             services.Configure<LocalSettingsOptions>(context.Configuration.GetSection(nameof(LocalSettingsOptions)));
-
-            services.AddLogging(loggingBuilder => loggingBuilder.AddSerilog(dispose: true));
         })
         .UseSerilog((hostingContext, loggerConfiguration) => loggerConfiguration
         .MinimumLevel.Debug()
