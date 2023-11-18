@@ -116,12 +116,6 @@ public partial class MainViewModel : ObservableRecipient, INavigationAware
         set => SetProperty(ref playStatusIcon, value);
     }
 
-    public string VolumeIcon
-    {
-        get => volumeIcon;
-        set => SetProperty(ref volumeIcon, value);
-    }
-
     public string FilePath
     {
         get => filePath;
