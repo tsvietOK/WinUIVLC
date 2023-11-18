@@ -274,8 +274,6 @@
                         TickPlacement="Outside"
                         Value="{x:Bind ViewModel.MediaPlayerWrapper.Volume, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
             </StackPanel>
-
         </Grid>
-
     </Grid>
 </Page>

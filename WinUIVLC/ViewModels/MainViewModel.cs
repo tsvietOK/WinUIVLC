@@ -336,7 +336,6 @@ public partial class MainViewModel : ObservableRecipient, INavigationAware
         _windowPresenterService.ToggleFullScreen();
     }
 
-
     private void VolumeDown()
     {
         MediaPlayerWrapper?.VolumeDown();
