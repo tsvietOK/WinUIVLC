@@ -79,13 +79,13 @@
                     VerticalAlignment="Center"
                     IsEnabled="True"
                     IsThumbToolTipEnabled="False"
-                    Maximum="{x:Bind ViewModel.TotalTimeLong, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource LongToDoubleConverter}}"
+                    Maximum="{x:Bind ViewModel.MediaPlayerWrapper.TotalTimeLong, Mode=OneWay, Converter={StaticResource LongToDoubleConverter}}"
                     Minimum="0"
                     Value="{x:Bind ViewModel.MediaPlayerWrapper.TimeLong, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource LongToDoubleConverter}}" />
             <TextBlock Grid.Column="2"
                        Margin="0,0,10,0"
                        VerticalAlignment="Center"
-                       Text="{x:Bind ViewModel.TotalTimeString, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, FallbackValue='--:--:--'}" />
+                       Text="{x:Bind ViewModel.MediaPlayerWrapper.TotalTimeString, Mode=OneWay, FallbackValue='--:--:--'}" />
 
             <CommandBar Grid.Row="1"
                         Grid.Column="0"

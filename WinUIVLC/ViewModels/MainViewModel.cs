@@ -26,10 +26,7 @@ public partial class MainViewModel : ObservableRecipient, INavigationAware
 
     private LibVLC libVLC;
     private MediaPlayer mediaPlayer;
-    private string totalTimeString = "--:--:--";
-    private TimeSpan totalTime = new(0, 0, 0);
     private string filePath = "Empty";
-    private long totalTimeLong;
     private ObservableMediaPlayerWrapper mediaPlayerWrapper;
     private Visibility controlsVisibility;
 
@@ -78,36 +75,6 @@ public partial class MainViewModel : ObservableRecipient, INavigationAware
         set => SetProperty(ref mediaPlayer, value);
     }
 
-    public long TotalTimeLong
-    {
-        get => totalTimeLong;
-        set
-        {
-            if (SetProperty(ref totalTimeLong, value))
-            {
-                TotalTime = TimeSpan.FromMilliseconds(value);
-            }
-        }
-    }
-
-    public TimeSpan TotalTime
-    {
-        get => totalTime;
-        set
-        {
-            if (SetProperty(ref totalTime, value))
-            {
-                TotalTimeString = totalTime.ToString(@"hh\:mm\:ss");
-            }
-        }
-    }
-
-    public string TotalTimeString
-    {
-        get => totalTimeString;
-        set => SetProperty(ref totalTimeString, value);
-    }
-
     public string FilePath
     {
         get => filePath;
@@ -150,17 +117,6 @@ public partial class MainViewModel : ObservableRecipient, INavigationAware
         _log.Information("Starting playback of '{0}'", FilePath);
 
         MediaPlayerWrapper = new ObservableMediaPlayerWrapper(Player, _dispatcherQueue, _log);
-
-        Player.Media.DurationChanged += Media_DurationChanged;
-    }
-
-    private void Media_DurationChanged(object? sender, MediaDurationChangedEventArgs e)
-    {
-        _dispatcherQueue.TryEnqueue(() =>
-        {
-            //TotalTime = TimeSpan.FromMilliseconds(e.Duration);
-            TotalTimeLong = e.Duration;
-        });
     }
 
     private void PointerMoved(PointerRoutedEventArgs? args)

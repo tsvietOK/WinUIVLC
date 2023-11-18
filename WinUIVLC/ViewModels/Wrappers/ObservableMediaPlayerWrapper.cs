@@ -50,6 +50,17 @@ public class ObservableMediaPlayerWrapper : ObservableObject
         {
             OnPropertyChanged(nameof(IsPlaying));
         });
+
+        _player.EndReached += (sender, args) => _dispatcherQueue.TryEnqueue(() =>
+        {
+            OnPropertyChanged(nameof(IsPlaying));
+        });
+
+        _player.LengthChanged += (sender, args) => _dispatcherQueue.TryEnqueue(() =>
+        {
+            OnPropertyChanged(nameof(TotalTimeLong));
+            OnPropertyChanged(nameof(TotalTimeString));
+        });
     }
 
     public long TimeLong
@@ -59,6 +70,10 @@ public class ObservableMediaPlayerWrapper : ObservableObject
     }
 
     public string TimeString => TimeSpan.FromMilliseconds(TimeLong).ToString(@"hh\:mm\:ss");
+
+    public long TotalTimeLong => _player.Length;
+
+    public string TotalTimeString => TimeSpan.FromMilliseconds(TotalTimeLong).ToString(@"hh\:mm\:ss");
 
     public int Volume
     {
