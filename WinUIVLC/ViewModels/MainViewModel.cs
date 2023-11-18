@@ -5,6 +5,7 @@ using LibVLCSharp.Platforms.Windows;
 using LibVLCSharp.Shared;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Input;
+using Serilog;
 using Windows.Storage;
 using Windows.System;
 using WinUIVLC.Contracts.Services;
@@ -21,6 +22,7 @@ public partial class MainViewModel : ObservableRecipient, INavigationAware
     private readonly DispatcherQueue _dispatcherQueue;
     private readonly INavigationService _navigationService;
     private readonly IWindowPresenterService _windowPresenterService;
+    private readonly ILogger _log;
 
     private LibVLC libVLC;
     private MediaPlayer mediaPlayer;
@@ -38,10 +40,12 @@ public partial class MainViewModel : ObservableRecipient, INavigationAware
         Interval = TimeSpan.FromSeconds(1),
     };
 
-    public MainViewModel(INavigationService navigationService, IWindowPresenterService windowPresenterService)
+    public MainViewModel(INavigationService navigationService, IWindowPresenterService windowPresenterService, ILogger log)
     {
         _navigationService = navigationService;
         _windowPresenterService = windowPresenterService;
+        _log = log;
+
         _windowPresenterService.WindowPresenterChanged += OnWindowPresenterChanged;
 
         InitializedCommand = new RelayCommand<InitializedEventArgs>(Initialize);
@@ -447,6 +451,8 @@ public partial class MainViewModel : ObservableRecipient, INavigationAware
         {
             var filePath = fileList.First().Path;
             FilePath = filePath;
+
+            _log.Information("File Path: '{0}'", FilePath);
         }
     }
 

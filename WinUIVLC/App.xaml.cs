@@ -1,7 +1,10 @@
-﻿using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.UI.Xaml;
 
+using Serilog;
+using Serilog.Events;
+using Windows.Storage;
 using WinUIVLC.Activation;
 using WinUIVLC.Contracts.Services;
 using WinUIVLC.Core.Contracts.Services;
@@ -82,8 +85,15 @@ public partial class App : Application
 
             // Configuration
             services.Configure<LocalSettingsOptions>(context.Configuration.GetSection(nameof(LocalSettingsOptions)));
-        }).
-        Build();
+
+            services.AddLogging(loggingBuilder => loggingBuilder.AddSerilog(dispose: true));
+        })
+        .UseSerilog((hostingContext, loggerConfiguration) => loggerConfiguration
+        .MinimumLevel.Debug()
+        .MinimumLevel.Override("Microsoft", LogEventLevel.Information)
+        .Enrich.FromLogContext()
+        .WriteTo.File(Path.Combine(Path.Combine(ApplicationData.Current.LocalFolder.Path, "logs/application.log")), rollingInterval: RollingInterval.Day))
+        .Build();
 
         App.GetService<IAppNotificationService>().Initialize();
 
