@@ -177,7 +177,7 @@ public partial class MainViewModel : ObservableRecipient, INavigationAware
     {
         _dispatcherQueue.TryEnqueue(() =>
         {
-            UpdateVolumeIcon();
+            
         });
 
     }
@@ -278,30 +278,6 @@ public partial class MainViewModel : ObservableRecipient, INavigationAware
     {
         ControlsVisibility = Visibility.Collapsed;
         _log.Information("Hiding controls");
-    }
-
-    private void UpdateVolumeIcon()
-    {
-        if (MediaPlayerWrapper.Volume == 0)
-        {
-            VolumeIcon = "\uE74F";
-        }
-        else if (MediaPlayerWrapper.Volume > 0 && MediaPlayerWrapper.Volume <= 25)
-        {
-            VolumeIcon = "\uE992";
-        }
-        else if (MediaPlayerWrapper.Volume > 25 && MediaPlayerWrapper.Volume <= 50)
-        {
-            VolumeIcon = "\uE993";
-        }
-        else if (MediaPlayerWrapper.Volume > 50 && MediaPlayerWrapper.Volume <= 75)
-        {
-            VolumeIcon = "\uE994";
-        }
-        else
-        {
-            VolumeIcon = "\uE767";
-        }
     }
 
     private void UpdatePlayIcon()

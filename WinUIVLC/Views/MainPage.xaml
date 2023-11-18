@@ -255,16 +255,16 @@
                 </Button>
 
                 <!--<TextBlock VerticalAlignment="Center" Text="{x:Bind ViewModel.FilePath, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />-->
-                <AppBarButton VerticalAlignment="Center"
-                              Command="{x:Bind ViewModel.MuteCommand}"
-                              LabelPosition="Collapsed">
-                    <AppBarButton.Icon>
-                        <FontIcon Glyph="{x:Bind ViewModel.VolumeIcon, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
-                    </AppBarButton.Icon>
+                <usercontrols:AppBarVolumeStateButton VerticalAlignment="Center"
+                                                      Command="{x:Bind ViewModel.MuteCommand}"
+                                                      LabelPosition="Collapsed"
+                                                      Style="{StaticResource DefaultAppBarButtonStyle}"
+                                                      Volume="{x:Bind ViewModel.MediaPlayerWrapper.Volume, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, FallbackValue=100}">
+
                     <Button.KeyboardAccelerators>
                         <KeyboardAccelerator Key="M" />
                     </Button.KeyboardAccelerators>
-                </AppBarButton>
+                </usercontrols:AppBarVolumeStateButton>
                 <Slider Width="150"
                         VerticalAlignment="Center"
                         Maximum="100"
@@ -272,7 +272,7 @@
                         SnapsTo="Ticks"
                         TickFrequency="5"
                         TickPlacement="Outside"
-                        Value="{x:Bind ViewModel.MediaPlayerWrapper.Volume, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                        Value="{x:Bind ViewModel.MediaPlayerWrapper.Volume, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, FallbackValue=100}" />
             </StackPanel>
         </Grid>
     </Grid>
