@@ -159,29 +159,7 @@ public partial class MainViewModel : ObservableRecipient, INavigationAware
 
         MediaPlayerWrapper = new ObservableMediaPlayerWrapper(Player, _dispatcherQueue, _log);
 
-        Player.Playing += Player_Playing;
         Player.Media.DurationChanged += Media_DurationChanged;
-        Player.MediaChanged += Player_MediaChanged;
-        Player.Paused += Player_Paused;
-        Player.Stopped += Player_Stopped;
-        Player.VolumeChanged += Player_VolumeChanged;
-    }
-
-    private void Player_VolumeChanged(object? sender, MediaPlayerVolumeChangedEventArgs e)
-    {
-        _dispatcherQueue.TryEnqueue(() =>
-        {
-            
-        });
-
-    }
-
-    private void Player_MediaChanged(object? sender, MediaPlayerMediaChangedEventArgs e)
-    {
-        //_dispatcherQueue.TryEnqueue(() =>
-        //{
-        //    Volume = (int)e.Volume;
-        //});
     }
 
     private void Media_DurationChanged(object? sender, MediaDurationChangedEventArgs e)
@@ -190,27 +168,6 @@ public partial class MainViewModel : ObservableRecipient, INavigationAware
         {
             //TotalTime = TimeSpan.FromMilliseconds(e.Duration);
             TotalTimeLong = e.Duration;
-        });
-    }
-
-    private void Player_Stopped(object? sender, EventArgs e)
-    {
-        _dispatcherQueue.TryEnqueue(() =>
-        {
-        });
-    }
-
-    private void Player_Paused(object? sender, EventArgs e)
-    {
-        _dispatcherQueue.TryEnqueue(() =>
-        {
-        });
-    }
-
-    private void Player_Playing(object? sender, EventArgs e)
-    {
-        _dispatcherQueue.TryEnqueue(() =>
-        {
         });
     }
 
