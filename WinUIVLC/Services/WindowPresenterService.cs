@@ -1,5 +1,6 @@
 using Microsoft.UI;
 using Microsoft.UI.Windowing;
+using Serilog;
 using WinRT.Interop;
 using WinUIVLC.Contracts.Services;
 
@@ -9,10 +10,13 @@ public class WindowPresenterService : IWindowPresenterService
 {
     private readonly AppWindow _appWindow;
     private readonly WindowEx _window;
+    private readonly ILogger _log;
 
-    public WindowPresenterService()
+    public WindowPresenterService(ILogger log)
     {
+        _log = log;
         _window = App.MainWindow;
+
         var windowHandle = WindowNative.GetWindowHandle(_window);
         var windowId = Win32Interop.GetWindowIdFromWindow(windowHandle);
         _appWindow = AppWindow.GetFromWindowId(windowId);
@@ -27,6 +31,7 @@ public class WindowPresenterService : IWindowPresenterService
     {
         if (args.DidPresenterChange)
         {
+            _log.Information("Presenter changed to {0}", sender.Presenter.Kind);
             WindowPresenterChanged?.Invoke(this, EventArgs.Empty);
         }
     }
@@ -35,10 +40,12 @@ public class WindowPresenterService : IWindowPresenterService
     {
         if (IsFullScreen)
         {
+            _log.Information("Exiting fullscreen");
             _appWindow.SetPresenter(AppWindowPresenterKind.Default);
         }
         else
         {
+            _log.Information("Entering fullscreen");
             _appWindow.SetPresenter(AppWindowPresenterKind.FullScreen);
         }
     }

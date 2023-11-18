@@ -148,17 +148,22 @@ public partial class MainViewModel : ObservableRecipient, INavigationAware
 
     private void Initialize(InitializedEventArgs eventArgs)
     {
-        LibVLC = new LibVLC(true, eventArgs.SwapChainOptions);
-        Player = new MediaPlayer(LibVLC);
-
         if (FilePath == "Empty")
         {
+            _log.Information("Skipping LibVLC initialization, because no media file specified.");
             return;
         }
 
+        _log.Information("Initializing LibVLC");
+
+        LibVLC = new LibVLC(true, eventArgs.SwapChainOptions);
+        Player = new MediaPlayer(LibVLC);
+
         var media = new Media(LibVLC, new Uri(FilePath));
         Player.Play(media);
-        MediaPlayerWrapper = new ObservableMediaPlayerWrapper(Player, _dispatcherQueue);
+        _log.Information("Starting playback of '{0}'", FilePath);
+
+        MediaPlayerWrapper = new ObservableMediaPlayerWrapper(Player, _dispatcherQueue, _log);
 
         Player.Playing += Player_Playing;
         Player.Media.DurationChanged += Media_DurationChanged;
@@ -260,11 +265,13 @@ public partial class MainViewModel : ObservableRecipient, INavigationAware
     private void ShowControls()
     {
         ControlsVisibility = Visibility.Visible;
+        _log.Information("Showing controls");
     }
 
     private void HideControls()
     {
         ControlsVisibility = Visibility.Collapsed;
+        _log.Information("Hiding controls");
     }
 
     private void UpdateVolumeIcon()

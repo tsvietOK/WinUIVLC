@@ -1,4 +1,5 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
+using Serilog;
 using WinUIVLC.Models.Enums;
 using DispatcherQueue = Microsoft.UI.Dispatching.DispatcherQueue;
 using MediaPlayer = LibVLCSharp.Shared.MediaPlayer;
@@ -9,16 +10,21 @@ public class ObservableMediaPlayerWrapper : ObservableObject
 {
     private readonly MediaPlayer _player;
     private readonly DispatcherQueue _dispatcherQueue;
+    private readonly ILogger _log;
+
     private int previousVolume;
 
     private const int rewindOffset10s = 10000;
     private const int rewindOffset3s = 3000;
     private const int rewindOffset60s = 60000;
 
-    public ObservableMediaPlayerWrapper(MediaPlayer player, DispatcherQueue dispatcherQueue)
+    private const int volumeStep = 5;
+
+    public ObservableMediaPlayerWrapper(MediaPlayer player, DispatcherQueue dispatcherQueue, ILogger log)
     {
         _player = player;
         _dispatcherQueue = dispatcherQueue;
+        _log = log;
         _player.TimeChanged += (sender, time) => _dispatcherQueue.TryEnqueue(() =>
         {
             OnPropertyChanged(nameof(TimeLong));
@@ -51,15 +57,17 @@ public class ObservableMediaPlayerWrapper : ObservableObject
     {
         if (Volume <= 200)
         {
-            Volume += 5;
+            _log.Information("VolumeUp, old value {0}, new value {1}", Volume, Volume + volumeStep);
+            Volume += volumeStep;
         }
     }
 
     public void VolumeDown()
     {
-        if (Volume >= 5)
+        if (Volume >= volumeStep)
         {
-            Volume -= 5;
+            _log.Information("VolumeDown, old value {0}, new value {1}", Volume, Volume - volumeStep);
+            Volume -= volumeStep;
         }
     }
 
@@ -68,11 +76,13 @@ public class ObservableMediaPlayerWrapper : ObservableObject
         if (Volume == 0)
         {
             Volume = previousVolume;
+            _log.Information("Unmute, old value {0}, new value {1}", 0, Volume);
         }
         else
         {
             previousVolume = Volume;
             Volume = 0;
+            _log.Information("Mute, old value {0}, new value {1}", previousVolume, Volume);
         }
     }
 
@@ -81,48 +91,48 @@ public class ObservableMediaPlayerWrapper : ObservableObject
         if (!IsPlaying)
         {
             _player.Play();
+            _log.Information("Play");
         }
         else
         {
             _player.Pause();
+            _log.Information("Pause");
         }
     }
 
     public void Stop()
     {
         _player.Stop();
+        _log.Information("Stop");
     }
 
     public void FastForward(RewindMode mode)
     {
-        switch (mode)
+        var offset = 0;
+        offset += mode switch
         {
-            case RewindMode.Normal:
-                TimeLong += rewindOffset10s;
-                break;
-            case RewindMode.Short:
-                TimeLong += rewindOffset3s;
-                break;
-            case RewindMode.Long:
-                TimeLong += rewindOffset60s;
-                break;
-        }
+            RewindMode.Normal => rewindOffset10s,
+            RewindMode.Short => rewindOffset3s,
+            RewindMode.Long => rewindOffset60s,
+            _ => rewindOffset10s,
+        };
 
+        TimeLong += offset;
+        _log.Information("FastForward, offset {0} ms", offset);
     }
 
     public void Rewind(RewindMode mode)
     {
-        switch (mode)
+        var offset = 0;
+        offset -= mode switch
         {
-            case RewindMode.Normal:
-                TimeLong -= rewindOffset10s;
-                break;
-            case RewindMode.Short:
-                TimeLong -= rewindOffset3s;
-                break;
-            case RewindMode.Long:
-                TimeLong -= rewindOffset60s;
-                break;
-        }
+            RewindMode.Normal => rewindOffset10s,
+            RewindMode.Short => rewindOffset3s,
+            RewindMode.Long => rewindOffset60s,
+            _ => rewindOffset10s,
+        };
+
+        TimeLong -= offset;
+        _log.Information("Rewind, offset {0} ms", offset);
     }
 }
