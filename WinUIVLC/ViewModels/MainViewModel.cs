@@ -227,9 +227,15 @@ public partial class MainViewModel : ObservableRecipient, INavigationAware
     {
         if (_windowPresenterService.IsFullScreen)
         {
-            ShowControls();
-            controlsHideTimer.Stop();
-            controlsHideTimer.Start();
+            if (ControlsVisibility == Visibility.Collapsed)
+            {
+                ShowControls();
+            }
+            else
+            {
+                controlsHideTimer.Stop();
+                controlsHideTimer.Start();
+            }
         }
     }
 
@@ -252,8 +258,8 @@ public partial class MainViewModel : ObservableRecipient, INavigationAware
         }
         else
         {
-            controlsHideTimer.Tick -= Timer_Tick;
             controlsHideTimer.Stop();
+            controlsHideTimer.Tick -= Timer_Tick;
             ShowControls();
         }
 
