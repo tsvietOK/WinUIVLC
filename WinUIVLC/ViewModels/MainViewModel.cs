@@ -27,9 +27,7 @@ public partial class MainViewModel : ObservableRecipient, INavigationAware
     private LibVLC libVLC;
     private MediaPlayer mediaPlayer;
     private string totalTimeString = "--:--:--";
-    private string playStatusIcon = "\uE768";
     private TimeSpan totalTime = new(0, 0, 0);
-    private string volumeIcon = "\uE767";
     private string filePath = "Empty";
     private long totalTimeLong;
     private ObservableMediaPlayerWrapper mediaPlayerWrapper;
@@ -108,12 +106,6 @@ public partial class MainViewModel : ObservableRecipient, INavigationAware
     {
         get => totalTimeString;
         set => SetProperty(ref totalTimeString, value);
-    }
-
-    public string PlayStatusIcon
-    {
-        get => playStatusIcon;
-        set => SetProperty(ref playStatusIcon, value);
     }
 
     public string FilePath
