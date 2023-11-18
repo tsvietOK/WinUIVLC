@@ -86,11 +86,12 @@ public partial class App : Application
             // Configuration
             services.Configure<LocalSettingsOptions>(context.Configuration.GetSection(nameof(LocalSettingsOptions)));
         })
-        .UseSerilog((hostingContext, loggerConfiguration) => loggerConfiguration
-        .MinimumLevel.Debug()
-        .MinimumLevel.Override("Microsoft", LogEventLevel.Information)
-        .Enrich.FromLogContext()
-        .WriteTo.File(Path.Combine(Path.Combine(ApplicationData.Current.LocalFolder.Path, "logs/application.log")), rollingInterval: RollingInterval.Day))
+        .UseSerilog((hostingContext, loggerConfiguration) =>
+        {
+            loggerConfiguration.MinimumLevel.Debug().MinimumLevel
+            .Override("Microsoft", LogEventLevel.Information).Enrich.FromLogContext().WriteTo
+            .File(Path.Combine(Path.Combine(ApplicationData.Current.LocalFolder.Path, "logs/application.log")), rollingInterval: RollingInterval.Day);
+        })
         .Build();
 
         App.GetService<IAppNotificationService>().Initialize();
