@@ -1,5 +1,5 @@
 <p align="center">
-  <img alt="Files Logo" src="WinUIVLC\Assets\Square44x44Logo.altform-lightunplated_targetsize-256.png" width="150px" />
+  <img alt="WinUIVLC Logo" src="WinUIVLC/Assets/Square44x44Logo.altform-lightunplated_targetsize-256.png" width="150px" />
   <h1 align="center">WinUIVLC</h1>
 </p>
 
