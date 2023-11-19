@@ -9,12 +9,12 @@ WinUIVLC - is a concept of a VLC media player created using design components fr
 
 <table align="center">
   <tr>
-    <td><img alt="Files Logo" src="images\player_dark.png" width="auto" /></td>
-    <td><img alt="Files Logo" src="images\player_light.png" width="auto" /></td>
+    <td><img alt="Files Logo" src="images/player_dark.png" width="auto" /></td>
+    <td><img alt="Files Logo" src="images/player_light.png" width="auto" /></td>
   </tr>
   <tr>
-    <td><img alt="Files Logo" src="images\player_dark_frame.png" width="auto" /></td>
-    <td><img alt="Files Logo" src="images\player_light_frame.png" width="auto" /></td>
+    <td><img alt="Files Logo" src="images/player_dark_frame.png" width="auto" /></td>
+    <td><img alt="Files Logo" src="images/player_light_frame.png" width="auto" /></td>
   </tr>
 </table>
 
