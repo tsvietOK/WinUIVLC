@@ -3,7 +3,7 @@
   <h1 align="center">WinUIVLC</h1>
 </p>
 
-WinUIVLC - is a concept of a VLC media player created using design components from WinUI 3 / Windows App SDK. As base libraries for media playback, used [libVLC](https://www.videolan.org/vlc/libvlc.html) and [LibVLCSharp](https://github.com/videolan/libvlcsharp).
+WinUIVLC - is an unofficial design concept of a VLC media player created using design components from WinUI 3 / Windows App SDK. As base libraries for media playback, used [libVLC](https://www.videolan.org/vlc/libvlc.html) and [LibVLCSharp](https://github.com/videolan/libvlcsharp).
 
 ## Screenshots
 
