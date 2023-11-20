@@ -37,7 +37,7 @@ public class FileActivationHandler : ActivationHandler<LaunchActivatedEventArgs>
         var files = ((Windows.ApplicationModel.Activation.FileActivatedEventArgs)eventArgs.Data).Files;
         _log.Information("Files list: {@Files}", files.Select(x=> x.Path));
 
-        _navigationService.NavigateTo(typeof(MainViewModel).FullName!, files);
+        _navigationService.NavigateTo(typeof(VideoPlayerViewModel).FullName!, files);
 
         await Task.CompletedTask;
     }

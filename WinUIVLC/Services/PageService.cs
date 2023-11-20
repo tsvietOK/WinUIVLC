@@ -14,7 +14,7 @@ public class PageService : IPageService
 
     public PageService()
     {
-        Configure<MainViewModel, MainPage>();
+        Configure<VideoPlayerViewModel, VideoPlayerPage>();
         Configure<SettingsViewModel, SettingsPage>();
     }
 

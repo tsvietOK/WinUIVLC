@@ -16,7 +16,7 @@ using MediaPlayer = LibVLCSharp.Shared.MediaPlayer;
 
 namespace WinUIVLC.ViewModels;
 
-public partial class MainViewModel : ObservableRecipient, INavigationAware
+public partial class VideoPlayerViewModel : ObservableRecipient, INavigationAware
 {
     private readonly DispatcherQueue _dispatcherQueue;
     private readonly INavigationService _navigationService;
@@ -34,7 +34,7 @@ public partial class MainViewModel : ObservableRecipient, INavigationAware
         Interval = TimeSpan.FromSeconds(1),
     };
 
-    public MainViewModel(INavigationService navigationService, IWindowPresenterService windowPresenterService, ILogger log)
+    public VideoPlayerViewModel(INavigationService navigationService, IWindowPresenterService windowPresenterService, ILogger log)
     {
         _navigationService = navigationService;
         _windowPresenterService = windowPresenterService;
@@ -45,7 +45,7 @@ public partial class MainViewModel : ObservableRecipient, INavigationAware
         _dispatcherQueue = DispatcherQueue.GetForCurrentThread();
     }
 
-    ~MainViewModel()
+    ~VideoPlayerViewModel()
     {
         Dispose();
     }

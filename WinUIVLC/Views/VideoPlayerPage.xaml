@@ -1,4 +1,4 @@
-<Page x:Class="WinUIVLC.Views.MainPage"
+<Page x:Class="WinUIVLC.Views.VideoPlayerPage"
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:converters="using:WinUIVLC.Converters"
