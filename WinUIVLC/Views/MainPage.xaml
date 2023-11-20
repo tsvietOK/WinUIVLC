@@ -5,6 +5,7 @@
       xmlns:converters1="using:CommunityToolkit.WinUI.Converters"
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
       xmlns:interactions="using:Microsoft.Xaml.Interactions.Core"
+      xmlns:interactions1="using:Microsoft.Xaml.Interactions.Media"
       xmlns:interactivity="using:Microsoft.Xaml.Interactivity"
       xmlns:lvs="using:LibVLCSharp.Platforms.Windows"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
@@ -49,6 +50,12 @@
                 <interactions:EventTriggerBehavior EventName="PointerMoved">
                     <interactions:InvokeCommandAction Command="{x:Bind ViewModel.PointerMovedCommand}" />
                 </interactions:EventTriggerBehavior>
+                <!--<interactions:EventTriggerBehavior EventName="KeyDown">
+                    <interactions:InvokeCommandAction Command="{x:Bind ViewModel.VideoViewKeyDownCommand}" />
+                -->
+                <!--<interactions1:ControlStoryboardAction Storyboard="{StaticResource HideControlsStoryboard}" />-->
+                <!--
+                </interactions:EventTriggerBehavior>-->
             </interactivity:Interaction.Behaviors>
             <lvs:VideoView.ContextFlyout>
                 <MenuFlyout>

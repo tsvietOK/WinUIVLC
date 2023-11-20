@@ -86,6 +86,44 @@ public partial class MainViewModel : ObservableRecipient, INavigationAware
 
     public bool LoadPlayer => FilePath != "Empty";
 
+    //[RelayCommand]
+    //private void VideoViewKeyDown(KeyRoutedEventArgs args)
+    //{
+    //    //switch (args.Key)
+    //    //{
+    //    //    case VirtualKey.Space:
+    //    //        PlayPause();
+    //    //        break;
+    //    //    case VirtualKey.Escape:
+    //    //        FullScreen();
+    //    //        break;
+    //    //    case VirtualKey.Up:
+    //    //        VolumeUp();
+    //    //        break;
+    //    //    case VirtualKey.Down:
+    //    //        VolumeDown();
+    //    //        break;
+    //    //    //case VirtualKey.Left:
+    //    //    //    Rewind(new KeyboardAcceleratorInvokedEventArgs());
+    //    //    //    break;
+    //    //    //case VirtualKey.Right:
+    //    //    //    FastForward(new KeyboardAcceleratorInvokedEventArgs());
+    //    //    //    break;
+    //    //    case VirtualKey.M:
+    //    //        Mute();
+    //    //        break;
+    //    //    case VirtualKey.S:
+    //    //        Stop();
+    //    //        break;
+    //    //    case VirtualKey.F:
+    //    //        //FullScreen();
+    //    //        break;
+    //    //    case VirtualKey.P:
+    //    //        PlayPause();
+    //    //        break;
+    //    //}
+    //}
+
     [RelayCommand]
     private void Initialized(InitializedEventArgs eventArgs)
     {
