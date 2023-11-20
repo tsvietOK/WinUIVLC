@@ -113,6 +113,11 @@
                         <AppBarButton.Icon>
                             <FontIcon Glyph="&#xEB9E;" />
                         </AppBarButton.Icon>
+                        <interactivity:Interaction.Behaviors>
+                            <interactions:EventTriggerBehavior EventName="Click">
+                                <interactions:InvokeCommandAction Command="{x:Bind ViewModel.RewindCommand}" />
+                            </interactions:EventTriggerBehavior>
+                        </interactivity:Interaction.Behaviors>
                         <AppBarButton.KeyboardAccelerators>
                             <KeyboardAccelerator Key="Left">
                                 <interactivity:Interaction.Behaviors>
@@ -157,6 +162,11 @@
                         <AppBarButton.Icon>
                             <FontIcon Glyph="&#xEB9D;" />
                         </AppBarButton.Icon>
+                        <interactivity:Interaction.Behaviors>
+                            <interactions:EventTriggerBehavior EventName="Click">
+                                <interactions:InvokeCommandAction Command="{x:Bind ViewModel.FastForwardCommand}" />
+                            </interactions:EventTriggerBehavior>
+                        </interactivity:Interaction.Behaviors>
                         <AppBarButton.KeyboardAccelerators>
                             <KeyboardAccelerator Key="Right">
                                 <interactivity:Interaction.Behaviors>

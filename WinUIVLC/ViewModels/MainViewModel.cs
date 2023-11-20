@@ -1,4 +1,3 @@
-using System.Windows.Input;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using LibVLCSharp.Platforms.Windows;
@@ -217,42 +216,57 @@ public partial class MainViewModel : ObservableRecipient, INavigationAware
     }
 
     [RelayCommand]
-    private void FastForward(KeyboardAcceleratorInvokedEventArgs args)
+    private void FastForward(object args)
     {
-        var modifier = args.KeyboardAccelerator.Modifiers;
-        switch (modifier)
+        if (args is KeyboardAcceleratorInvokedEventArgs keyboardAcceleratorInvokedEventArgs)
         {
-            case VirtualKeyModifiers.None:
-            case VirtualKeyModifiers.Menu://10s
-                MediaPlayerWrapper?.FastForward(RewindMode.Normal);
-                break;
-            case VirtualKeyModifiers.Control://60s
-                MediaPlayerWrapper?.FastForward(RewindMode.Long);
-                break;
-            case VirtualKeyModifiers.Shift://3s
-                MediaPlayerWrapper?.FastForward(RewindMode.Short);
-                break;
+            var modifier = keyboardAcceleratorInvokedEventArgs.KeyboardAccelerator.Modifiers;
+            switch (modifier)
+            {
+                case VirtualKeyModifiers.None:
+                case VirtualKeyModifiers.Menu://10s
+                    MediaPlayerWrapper?.FastForward(RewindMode.Normal);
+                    break;
+                case VirtualKeyModifiers.Control://60s
+                    MediaPlayerWrapper?.FastForward(RewindMode.Long);
+                    break;
+                case VirtualKeyModifiers.Shift://3s
+                    MediaPlayerWrapper?.FastForward(RewindMode.Short);
+                    break;
+            }
+            keyboardAcceleratorInvokedEventArgs.Handled = true;
+        }
+        else
+        {
+            MediaPlayerWrapper?.FastForward(RewindMode.Normal);
         }
     }
 
     [RelayCommand]
-    private void Rewind(KeyboardAcceleratorInvokedEventArgs args)
+    private void Rewind(object args)
     {
-        var modifier = args.KeyboardAccelerator.Modifiers;
-        switch (modifier)
+        if (args is KeyboardAcceleratorInvokedEventArgs keyboardAcceleratorInvokedEventArgs)
         {
-            case VirtualKeyModifiers.None:
-            case VirtualKeyModifiers.Menu://10s
-                MediaPlayerWrapper?.Rewind(RewindMode.Normal);
-                break;
-            case VirtualKeyModifiers.Control://60s
-                MediaPlayerWrapper?.Rewind(RewindMode.Long);
-                break;
-            case VirtualKeyModifiers.Shift://3s
-                MediaPlayerWrapper?.Rewind(RewindMode.Short);
-                break;
+            var modifier = keyboardAcceleratorInvokedEventArgs.KeyboardAccelerator.Modifiers;
+            switch (modifier)
+            {
+                case VirtualKeyModifiers.None:
+                case VirtualKeyModifiers.Menu://10s
+                    MediaPlayerWrapper?.Rewind(RewindMode.Normal);
+                    break;
+                case VirtualKeyModifiers.Control://60s
+                    MediaPlayerWrapper?.Rewind(RewindMode.Long);
+                    break;
+                case VirtualKeyModifiers.Shift://3s
+                    MediaPlayerWrapper?.Rewind(RewindMode.Short);
+                    break;
+            }
+            keyboardAcceleratorInvokedEventArgs.Handled = true;
         }
-
+        else
+        {
+            MediaPlayerWrapper?.Rewind(RewindMode.Normal);
+        }
     }
 
     public void OnNavigatedTo(object parameter)
