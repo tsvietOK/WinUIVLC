@@ -40,25 +40,57 @@
                 <ColumnDefinition Width="*" />
                 <ColumnDefinition Width="Auto" />
             </Grid.ColumnDefinitions>
-            <MenuBar Grid.Column="0">
-                <!--
-                TODO: Update item titles by updating <x:Uid>.Text entries in Strings/en-us/Resources.resw.
-                https://docs.microsoft.com/windows/uwp/app-resources/localize-strings-ui-manifest#refer-to-a-string-resource-identifier-from-xaml
-                -->
-                <MenuBarItem x:Uid="ShellMenuBarItem_File" IsTabStop="False">
+            <CommandBar HorizontalAlignment="Left" DefaultLabelPosition="Right">
+                <AppBarButton Icon="Add" Label="Open media">
+                    <AppBarButton.Flyout>
+                        <MenuFlyout Placement="BottomEdgeAlignedLeft">
+                            <MenuFlyoutItem Icon="Link" Text="Link" />
+                            <MenuFlyoutItem Icon="OpenFile" Text="File" />
+                        </MenuFlyout>
+                    </AppBarButton.Flyout>
+                </AppBarButton>
+                <AppBarSeparator />
+
+                <AppBarButton Icon="Play" Label="Playback" />
+                <AppBarButton Icon="Audio" Label="Audio" />
+                <AppBarButton Icon="Video" Label="Video" />
+                <AppBarSeparator />
+                <AppBarButton Label="Subtitle">
+                    <AppBarButton.Icon>
+                        <FontIcon Glyph="&#xED1E;" />
+                    </AppBarButton.Icon>
+                </AppBarButton>
+                <AppBarButton Label="Tools">
+                    <AppBarButton.Icon>
+                        <FontIcon Glyph="&#xEC7A;" />
+                    </AppBarButton.Icon>
+                </AppBarButton>
+                <AppBarButton Icon="View" Label="View" />
+                <AppBarSeparator />
+                <AppBarButton Icon="Help" Label="Help" />
+            </CommandBar>
+            <!--<MenuBar Grid.Column="0">
+                <MenuBarItem Title="Media" IsTabStop="False">
                     <MenuFlyoutItem x:Uid="ShellMenuItem_File_Exit" Command="{x:Bind ViewModel.MenuFileExitCommand}" />
                 </MenuBarItem>
-                <MenuBarItem x:Uid="ShellMenuBarItem_Views" IsTabStop="False">
+                <MenuBarItem Title="Playback" IsTabStop="False">
                     <MenuBarItem.Items>
                         <MenuFlyoutItem x:Uid="ShellMenuItem_Views_Main" Command="{x:Bind ViewModel.MenuViewsMainCommand}" />
                     </MenuBarItem.Items>
                 </MenuBarItem>
-            </MenuBar>
+                <MenuBarItem Title="Audio" />
+                <MenuBarItem Title="Video" />
+                <MenuBarItem Title="Subtitle" />
+                <MenuBarItem Title="Tools" />
+                <MenuBarItem Title="View" />
+                <MenuBarItem Title="Help" />
+            </MenuBar>-->
             <AppBarButton x:Name="ShellMenuBarSettingsButton"
                           x:Uid="ShellMenuBarSettingsButton"
                           Grid.Column="1"
                           AnimatedIcon.State="Normal"
                           Command="{x:Bind ViewModel.MenuSettingsCommand}"
+                          Label="Setting"
                           LabelPosition="Collapsed"
                           PointerEntered="ShellMenuBarSettingsButton_PointerEntered"
                           PointerExited="ShellMenuBarSettingsButton_PointerExited">

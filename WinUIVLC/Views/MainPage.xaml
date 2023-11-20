@@ -50,6 +50,51 @@
                     <interactions:InvokeCommandAction Command="{x:Bind ViewModel.PointerMovedCommand}" />
                 </interactions:EventTriggerBehavior>
             </interactivity:Interaction.Behaviors>
+            <lvs:VideoView.ContextFlyout>
+                <MenuFlyout>
+                    <MenuFlyoutItem Icon="Play" Text="Play">
+                        <MenuFlyoutItem.KeyboardAccelerators>
+                            <KeyboardAccelerator Key="Space" />
+                        </MenuFlyoutItem.KeyboardAccelerators>
+                    </MenuFlyoutItem>
+                    <MenuFlyoutItem Icon="Stop" Text="Stop">
+                        <MenuFlyoutItem.KeyboardAccelerators>
+                            <KeyboardAccelerator Key="S" />
+                        </MenuFlyoutItem.KeyboardAccelerators>
+                    </MenuFlyoutItem>
+                    <MenuFlyoutItem Icon="Previous" Text="Previous" />
+                    <MenuFlyoutItem Icon="Next" Text="Next" />
+                    <MenuFlyoutSeparator />
+                    <MenuFlyoutItem Icon="View" Text="View">
+                        <MenuFlyoutItem.KeyboardAccelerators>
+                            <!--<KeyboardAccelerator Key="S" Modifiers="Control" />-->
+                        </MenuFlyoutItem.KeyboardAccelerators>
+                    </MenuFlyoutItem>
+                    <MenuFlyoutItem Text="Tools">
+                        <MenuFlyoutItem.Icon>
+                            <FontIcon Glyph="&#xEC7A;" />
+                        </MenuFlyoutItem.Icon>
+                        <MenuFlyoutItem.KeyboardAccelerators>
+                            <!--<KeyboardAccelerator Key="S" Modifiers="Control" />-->
+                        </MenuFlyoutItem.KeyboardAccelerators>
+                    </MenuFlyoutItem>
+                    <MenuFlyoutItem Text="Playlist">
+                        <MenuFlyoutItem.Icon>
+                            <FontIcon Glyph="&#xE81E;" />
+                        </MenuFlyoutItem.Icon>
+                        <MenuFlyoutItem.KeyboardAccelerators>
+                            <!--<KeyboardAccelerator Key="S" Modifiers="Control" />-->
+                        </MenuFlyoutItem.KeyboardAccelerators>
+                    </MenuFlyoutItem>
+                    <MenuFlyoutItem Icon="Add" Text="Open media">
+                        <MenuFlyoutItem.KeyboardAccelerators>
+                            <!--<KeyboardAccelerator Key="S" Modifiers="Control" />-->
+                        </MenuFlyoutItem.KeyboardAccelerators>
+                    </MenuFlyoutItem>
+                    <MenuFlyoutSeparator />
+                    <MenuFlyoutItem Icon="Cancel" Text="Quit" />
+                </MenuFlyout>
+            </lvs:VideoView.ContextFlyout>
         </lvs:VideoView>
 
         <Grid x:Name="Controls"
