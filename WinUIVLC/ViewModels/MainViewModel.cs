@@ -43,18 +43,6 @@ public partial class MainViewModel : ObservableRecipient, INavigationAware
 
         _windowPresenterService.WindowPresenterChanged += OnWindowPresenterChanged;
 
-        InitializedCommand = new RelayCommand<InitializedEventArgs>(Initialize);
-        PlayPauseCommand = new RelayCommand(PlayPause);
-        StopCommand = new RelayCommand(Stop);
-        MuteCommand = new RelayCommand(Mute);
-        FullScreenCommand = new RelayCommand(FullScreen);
-        RewindCommand = new RelayCommand<KeyboardAcceleratorInvokedEventArgs>(Rewind);
-        FastForwardCommand = new RelayCommand<KeyboardAcceleratorInvokedEventArgs>(FastForward);
-        VolumeUpCommand = new RelayCommand(VolumeUp);
-        VolumeDownCommand = new RelayCommand(VolumeDown);
-        ScrollChangedCommand = new RelayCommand<PointerRoutedEventArgs>(ScrollChanged);
-        PointerMovedCommand = new RelayCommand<PointerRoutedEventArgs>(PointerMoved);
-
         _dispatcherQueue = DispatcherQueue.GetForCurrentThread();
     }
 
@@ -99,7 +87,8 @@ public partial class MainViewModel : ObservableRecipient, INavigationAware
 
     public bool LoadPlayer => FilePath != "Empty";
 
-    private void Initialize(InitializedEventArgs eventArgs)
+    [RelayCommand]
+    private void Initialized(InitializedEventArgs eventArgs)
     {
         if (FilePath == "Empty")
         {
@@ -119,6 +108,7 @@ public partial class MainViewModel : ObservableRecipient, INavigationAware
         MediaPlayerWrapper = new ObservableMediaPlayerWrapper(Player, _dispatcherQueue, _log);
     }
 
+    [RelayCommand]
     private void PointerMoved(PointerRoutedEventArgs? args)
     {
         if (_windowPresenterService.IsFullScreen)
@@ -176,36 +166,43 @@ public partial class MainViewModel : ObservableRecipient, INavigationAware
         _log.Information("Hiding controls");
     }
 
+    [RelayCommand]
     private void PlayPause()
     {
         MediaPlayerWrapper?.PlayPause();
     }
 
+    [RelayCommand]
     private void Stop()
     {
         MediaPlayerWrapper?.Stop();
     }
 
+    [RelayCommand]
     private void Mute()
     {
         MediaPlayerWrapper?.Mute();
     }
 
+    [RelayCommand]
     private void FullScreen()
     {
         _windowPresenterService.ToggleFullScreen();
     }
 
+    [RelayCommand]
     private void VolumeDown()
     {
         MediaPlayerWrapper?.VolumeDown();
     }
 
+    [RelayCommand]
     private void VolumeUp()
     {
         MediaPlayerWrapper?.VolumeUp();
     }
 
+    [RelayCommand]
     private void ScrollChanged(PointerRoutedEventArgs args)
     {
         var delta = args.GetCurrentPoint(null).Properties.MouseWheelDelta;
@@ -219,6 +216,7 @@ public partial class MainViewModel : ObservableRecipient, INavigationAware
         }
     }
 
+    [RelayCommand]
     private void FastForward(KeyboardAcceleratorInvokedEventArgs args)
     {
         var modifier = args.KeyboardAccelerator.Modifiers;
@@ -237,6 +235,7 @@ public partial class MainViewModel : ObservableRecipient, INavigationAware
         }
     }
 
+    [RelayCommand]
     private void Rewind(KeyboardAcceleratorInvokedEventArgs args)
     {
         var modifier = args.KeyboardAccelerator.Modifiers;
@@ -254,67 +253,6 @@ public partial class MainViewModel : ObservableRecipient, INavigationAware
                 break;
         }
 
-
-    }
-
-    public ICommand InitializedCommand
-    {
-        get; set;
-    }
-
-    public ICommand PlayPauseCommand
-    {
-        get; set;
-    }
-
-    public ICommand StopCommand
-    {
-        get; set;
-    }
-
-    public ICommand MuteCommand
-    {
-        get; set;
-    }
-
-    public ICommand ChangeProgressCommand
-    {
-        get; set;
-    }
-
-    public ICommand FullScreenCommand
-    {
-        get; set;
-    }
-
-    public ICommand RewindCommand
-    {
-        get; set;
-    }
-
-    public ICommand FastForwardCommand
-    {
-        get; set;
-    }
-
-    public ICommand VolumeUpCommand
-    {
-        get; set;
-    }
-
-    public ICommand VolumeDownCommand
-    {
-        get; set;
-    }
-
-    public ICommand ScrollChangedCommand
-    {
-        get; set;
-    }
-
-    public ICommand PointerMovedCommand
-    {
-        get; set;
     }
 
     public void OnNavigatedTo(object parameter)
