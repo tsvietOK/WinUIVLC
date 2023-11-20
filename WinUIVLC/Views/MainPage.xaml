@@ -61,12 +61,14 @@
                 <MenuFlyout>
                     <MenuFlyoutItem Icon="Play" Text="Play">
                         <MenuFlyoutItem.KeyboardAccelerators>
-                            <KeyboardAccelerator Key="Space" />
+                            <!--  Conflicts with other accelerators  -->
+                            <!--<KeyboardAccelerator Key="Space" />-->
                         </MenuFlyoutItem.KeyboardAccelerators>
                     </MenuFlyoutItem>
                     <MenuFlyoutItem Icon="Stop" Text="Stop">
                         <MenuFlyoutItem.KeyboardAccelerators>
-                            <KeyboardAccelerator Key="S" />
+                            <!--  Conflicts with other accelerators  -->
+                            <!--<KeyboardAccelerator Key="S" />-->
                         </MenuFlyoutItem.KeyboardAccelerators>
                     </MenuFlyoutItem>
                     <MenuFlyoutItem Icon="Previous" Text="Previous" />
