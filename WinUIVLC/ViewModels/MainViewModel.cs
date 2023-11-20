@@ -251,6 +251,7 @@ public partial class MainViewModel : ObservableRecipient, INavigationAware
         {
             MediaPlayerWrapper?.VolumeDown();
         }
+        args.Handled = true;
     }
 
     [RelayCommand]
