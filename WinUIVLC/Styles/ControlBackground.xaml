@@ -3,7 +3,7 @@
                     xmlns:local="using:WinUIVLC.Styles">
     <ResourceDictionary.ThemeDictionaries>
         <ResourceDictionary x:Key="Default">
-            <SolidColorBrush x:Key="ControlsBackground" Color="#50000000" />
+            <SolidColorBrush x:Key="ControlsBackground" Color="#70000000" />
         </ResourceDictionary>
         <ResourceDictionary x:Key="Light">
             <SolidColorBrush x:Key="ControlsBackground" Color="#90FFFFFF" />
