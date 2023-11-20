@@ -138,8 +138,7 @@ public class ObservableMediaPlayerWrapper : ObservableObject
 
     public void FastForward(RewindMode mode)
     {
-        var offset = 0;
-        offset += mode switch
+        var offset = mode switch
         {
             RewindMode.Normal => rewindOffset10s,
             RewindMode.Short => rewindOffset3s,
@@ -153,8 +152,7 @@ public class ObservableMediaPlayerWrapper : ObservableObject
 
     public void Rewind(RewindMode mode)
     {
-        var offset = 0;
-        offset -= mode switch
+        var offset = mode switch
         {
             RewindMode.Normal => rewindOffset10s,
             RewindMode.Short => rewindOffset3s,
