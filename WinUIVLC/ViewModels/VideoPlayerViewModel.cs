@@ -142,7 +142,7 @@ public partial class VideoPlayerViewModel : ObservableRecipient, INavigationAwar
         Player.Play(media);
         _log.Information("Starting playback of '{0}'", FilePath);
 
-        MediaPlayerWrapper = new ObservableMediaPlayerWrapper(Player, _dispatcherQueue, _log);
+        MediaPlayerWrapper = new ObservableMediaPlayerWrapper(Player, _dispatcherQueue);
     }
 
     [RelayCommand]

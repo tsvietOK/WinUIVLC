@@ -10,7 +10,7 @@ public class ObservableMediaPlayerWrapper : ObservableObject
 {
     private readonly MediaPlayer _player;
     private readonly DispatcherQueue _dispatcherQueue;
-    private readonly ILogger _log;
+    private readonly ILogger _log = Log.ForContext<ObservableMediaPlayerWrapper>();
 
     private int previousVolume;
 
@@ -20,11 +20,10 @@ public class ObservableMediaPlayerWrapper : ObservableObject
 
     private const int volumeStep = 5;
 
-    public ObservableMediaPlayerWrapper(MediaPlayer player, DispatcherQueue dispatcherQueue, ILogger log)
+    public ObservableMediaPlayerWrapper(MediaPlayer player, DispatcherQueue dispatcherQueue)
     {
         _player = player;
         _dispatcherQueue = dispatcherQueue;
-        _log = log;
         _player.TimeChanged += (sender, time) => _dispatcherQueue.TryEnqueue(() =>
         {
             OnPropertyChanged(nameof(TimeLong));
