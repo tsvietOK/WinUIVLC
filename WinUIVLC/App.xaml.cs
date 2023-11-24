@@ -65,6 +65,7 @@ public partial class App : Application
             // Other Activation Handlers
             services.AddTransient<IActivationHandler, AppNotificationActivationHandler>();
             services.AddTransient<IActivationHandler, FileActivationHandler>();
+            services.AddTransient<INavigationViewService, NavigationViewService>();
 
             // Services
             services.AddSingleton<IAppNotificationService, AppNotificationService>();
@@ -86,6 +87,7 @@ public partial class App : Application
             services.AddTransient<VideoPlayerPage>();
             services.AddTransient<ShellPage>();
             services.AddTransient<ShellViewModel>();
+            services.AddTransient<HomePageViewModel>();
 
             // Configuration
             services.Configure<LocalSettingsOptions>(context.Configuration.GetSection(nameof(LocalSettingsOptions)));

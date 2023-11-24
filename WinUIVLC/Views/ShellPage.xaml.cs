@@ -1,8 +1,6 @@
 ﻿using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
 using Microsoft.UI.Xaml.Input;
-using Microsoft.UI.Xaml.Media;
-
 using Windows.System;
 
 using WinUIVLC.Contracts.Services;
@@ -24,6 +22,7 @@ public sealed partial class ShellPage : Page
         InitializeComponent();
 
         ViewModel.NavigationService.Frame = NavigationFrame;
+        ViewModel.NavigationViewService.Initialize(NavigationViewControl);
 
         // A custom title bar is required for full window theme and Mica support.
         // https://docs.microsoft.com/windows/apps/develop/title-bar?tabs=winui3#full-customization
@@ -40,8 +39,8 @@ public sealed partial class ShellPage : Page
         KeyboardAccelerators.Add(BuildKeyboardAccelerator(VirtualKey.Left, VirtualKeyModifiers.Menu));
         KeyboardAccelerators.Add(BuildKeyboardAccelerator(VirtualKey.GoBack));
 
-        ShellMenuBarSettingsButton.AddHandler(UIElement.PointerPressedEvent, new PointerEventHandler(ShellMenuBarSettingsButton_PointerPressed), true);
-        ShellMenuBarSettingsButton.AddHandler(UIElement.PointerReleasedEvent, new PointerEventHandler(ShellMenuBarSettingsButton_PointerReleased), true);
+        //ShellMenuBarSettingsButton.AddHandler(UIElement.PointerPressedEvent, new PointerEventHandler(ShellMenuBarSettingsButton_PointerPressed), true);
+        //ShellMenuBarSettingsButton.AddHandler(UIElement.PointerReleasedEvent, new PointerEventHandler(ShellMenuBarSettingsButton_PointerReleased), true);
     }
 
     private void MainWindow_Activated(object sender, WindowActivatedEventArgs args)
@@ -51,8 +50,8 @@ public sealed partial class ShellPage : Page
 
     private void OnUnloaded(object sender, RoutedEventArgs e)
     {
-        ShellMenuBarSettingsButton.RemoveHandler(UIElement.PointerPressedEvent, (PointerEventHandler)ShellMenuBarSettingsButton_PointerPressed);
-        ShellMenuBarSettingsButton.RemoveHandler(UIElement.PointerReleasedEvent, (PointerEventHandler)ShellMenuBarSettingsButton_PointerReleased);
+        //ShellMenuBarSettingsButton.RemoveHandler(UIElement.PointerPressedEvent, (PointerEventHandler)ShellMenuBarSettingsButton_PointerPressed);
+        //ShellMenuBarSettingsButton.RemoveHandler(UIElement.PointerReleasedEvent, (PointerEventHandler)ShellMenuBarSettingsButton_PointerReleased);
     }
 
     private static KeyboardAccelerator BuildKeyboardAccelerator(VirtualKey key, VirtualKeyModifiers? modifiers = null)
@@ -78,23 +77,35 @@ public sealed partial class ShellPage : Page
         args.Handled = result;
     }
 
-    private void ShellMenuBarSettingsButton_PointerEntered(object sender, PointerRoutedEventArgs e)
-    {
-        AnimatedIcon.SetState((UIElement)sender, "PointerOver");
-    }
+    //private void ShellMenuBarSettingsButton_PointerEntered(object sender, PointerRoutedEventArgs e)
+    //{
+    //    AnimatedIcon.SetState((UIElement)sender, "PointerOver");
+    //}
 
-    private void ShellMenuBarSettingsButton_PointerPressed(object sender, PointerRoutedEventArgs e)
-    {
-        AnimatedIcon.SetState((UIElement)sender, "Pressed");
-    }
+    //private void ShellMenuBarSettingsButton_PointerPressed(object sender, PointerRoutedEventArgs e)
+    //{
+    //    AnimatedIcon.SetState((UIElement)sender, "Pressed");
+    //}
 
-    private void ShellMenuBarSettingsButton_PointerReleased(object sender, PointerRoutedEventArgs e)
-    {
-        AnimatedIcon.SetState((UIElement)sender, "Normal");
-    }
+    //private void ShellMenuBarSettingsButton_PointerReleased(object sender, PointerRoutedEventArgs e)
+    //{
+    //    AnimatedIcon.SetState((UIElement)sender, "Normal");
+    //}
 
-    private void ShellMenuBarSettingsButton_PointerExited(object sender, PointerRoutedEventArgs e)
+    //private void ShellMenuBarSettingsButton_PointerExited(object sender, PointerRoutedEventArgs e)
+    //{
+    //    AnimatedIcon.SetState((UIElement)sender, "Normal");
+    //}
+
+    private void NavigationViewControl_DisplayModeChanged(NavigationView sender, NavigationViewDisplayModeChangedEventArgs args)
     {
-        AnimatedIcon.SetState((UIElement)sender, "Normal");
+        AppTitleBar.Margin = new Thickness()
+        {
+            Left = sender.CompactPaneLength * (sender.DisplayMode == NavigationViewDisplayMode.Minimal ? 2 : 1),
+            //Left = AppTitleBar.Margin.Left,
+            Top = AppTitleBar.Margin.Top,
+            Right = AppTitleBar.Margin.Right,
+            Bottom = AppTitleBar.Margin.Bottom
+        };
     }
 }

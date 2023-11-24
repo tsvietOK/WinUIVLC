@@ -9,15 +9,7 @@
     <Page.Resources>
         <helpers:EnumToBooleanConverter x:Key="EnumToBooleanConverter" />
     </Page.Resources>
-    <Grid Margin="{StaticResource MenuBarContentMargin}">
-        <Grid.RowDefinitions>
-            <RowDefinition Height="48" />
-            <RowDefinition Height="*" />
-        </Grid.RowDefinitions>
-
-        <TextBlock x:Uid="Settings_Title"
-                   Grid.Row="0"
-                   Style="{StaticResource PageTitleStyle}" />
+    <Grid Margin="{StaticResource NavigationViewPageContentMargin}">
         <StackPanel x:Name="ContentArea" Grid.Row="1">
             <TextBlock x:Uid="Settings_Personalization" Style="{ThemeResource SubtitleTextBlockStyle}" />
             <StackPanel Margin="{StaticResource SmallTopBottomMargin}">

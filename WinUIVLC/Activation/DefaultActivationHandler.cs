@@ -28,7 +28,7 @@ public class DefaultActivationHandler : ActivationHandler<LaunchActivatedEventAr
     {
         _log.Information("Activation handled by {0}", typeof(DefaultActivationHandler));
 
-        _navigationService.NavigateTo(typeof(VideoPlayerViewModel).FullName!, args.Arguments);
+        _navigationService.NavigateTo(typeof(HomePageViewModel).FullName!, args.Arguments);
 
         await Task.CompletedTask;
     }

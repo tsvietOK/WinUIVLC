@@ -4,9 +4,12 @@ using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 
 using Microsoft.UI.Xaml;
+using Microsoft.UI.Xaml.Controls;
 using Microsoft.UI.Xaml.Navigation;
 
 using WinUIVLC.Contracts.Services;
+using WinUIVLC.Services;
+using WinUIVLC.Views;
 
 namespace WinUIVLC.ViewModels;
 
@@ -14,6 +17,12 @@ public partial class ShellViewModel : ObservableRecipient
 {
     [ObservableProperty]
     private bool isBackEnabled;
+
+    [ObservableProperty]
+    private object? selected;
+
+    [ObservableProperty]
+    private NavigationViewPaneDisplayMode paneDisplayMode = NavigationViewPaneDisplayMode.Auto;
 
     public ICommand MenuFileExitCommand
     {
@@ -40,12 +49,18 @@ public partial class ShellViewModel : ObservableRecipient
         get;
     }
 
+    public INavigationViewService NavigationViewService
+    {
+        get;
+    }
+
     public bool IsNotFullScreen => !_windowPresenterService.IsFullScreen;
 
-    public ShellViewModel(INavigationService navigationService, IWindowPresenterService windowPresenterService)
+    public ShellViewModel(INavigationService navigationService, IWindowPresenterService windowPresenterService, INavigationViewService navigationViewService)
     {
         NavigationService = navigationService;
         NavigationService.Navigated += OnNavigated;
+        NavigationViewService = navigationViewService;
 
         _windowPresenterService = windowPresenterService;
         _windowPresenterService.WindowPresenterChanged += OnWindowPresenterChanged;
@@ -60,7 +75,31 @@ public partial class ShellViewModel : ObservableRecipient
         OnPropertyChanged(nameof(IsNotFullScreen));
     }
 
-    private void OnNavigated(object sender, NavigationEventArgs e) => IsBackEnabled = NavigationService.CanGoBack;
+    private void OnNavigated(object sender, NavigationEventArgs e)
+    {
+        IsBackEnabled = NavigationService.CanGoBack;
+
+        if (e.SourcePageType == typeof(VideoPlayerPage))
+        {
+            PaneDisplayMode = NavigationViewPaneDisplayMode.LeftMinimal;
+        }
+        else
+        {
+            PaneDisplayMode = NavigationViewPaneDisplayMode.Auto;
+        }
+
+        if (e.SourcePageType == typeof(SettingsPage))
+        {
+            Selected = NavigationViewService.SettingsItem;
+            return;
+        }
+
+        var selectedItem = NavigationViewService.GetSelectedItem(e.SourcePageType);
+        if (selectedItem != null)
+        {
+            Selected = selectedItem;
+        }
+    }
 
     private void OnMenuFileExit() => Application.Current.Exit();
 

@@ -2,9 +2,14 @@
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:animatedvisuals="using:Microsoft.UI.Xaml.Controls.AnimatedVisuals"
+      xmlns:behaviors="using:WinUIVLC.Behaviors"
+      xmlns:controls="using:Microsoft.UI.Xaml.Controls"
       xmlns:converters="using:CommunityToolkit.WinUI.Converters"
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+      xmlns:helpers="using:WinUIVLC.Helpers"
+      xmlns:i="using:Microsoft.Xaml.Interactivity"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+      xmlns:primitives="using:ABI.Microsoft.UI.Xaml.Controls.Primitives"
       Loaded="OnLoaded"
       Unloaded="OnUnloaded"
       mc:Ignorable="d">
@@ -12,30 +17,31 @@
         <converters:BoolToVisibilityConverter x:Key="BoolToVisibilityConverter" />
     </Page.Resources>
     <Grid>
-        <Grid.RowDefinitions>
+        <!--<Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
             <RowDefinition Height="*" />
-        </Grid.RowDefinitions>
+        </Grid.RowDefinitions>-->
         <Grid x:Name="AppTitleBar"
+              Canvas.ZIndex="1"
               Grid.Row="0"
-              Height="32"
+              Height="{Binding ElementName=NavigationViewControl, Path=CompactPaneLength}"
+              VerticalAlignment="Top"
               Visibility="{x:Bind ViewModel.IsNotFullScreen, Mode=OneWay, Converter={StaticResource BoolToVisibilityConverter}}">
             <Image Width="16"
                    Height="16"
-                   Margin="8,0"
                    HorizontalAlignment="Left">
                 <Image.Source>
                     <BitmapImage DecodePixelWidth="32" UriSource="ms-appx:///Assets/VLC_icon.ico" />
                 </Image.Source>
             </Image>
             <TextBlock x:Name="AppTitleBarText"
-                       Margin="32,0,0,0"
+                       Margin="28,0,0,0"
                        VerticalAlignment="Center"
                        Style="{StaticResource CaptionTextBlockStyle}"
                        TextWrapping="NoWrap" />
         </Grid>
-        <Grid Grid.Row="1" Visibility="{x:Bind ViewModel.IsNotFullScreen, Mode=OneWay, Converter={StaticResource BoolToVisibilityConverter}}">
+        <!--<Grid Grid.Row="1" Visibility="{x:Bind ViewModel.IsNotFullScreen, Mode=OneWay, Converter={StaticResource BoolToVisibilityConverter}}">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*" />
                 <ColumnDefinition Width="Auto" />
@@ -69,7 +75,8 @@
                 <AppBarSeparator />
                 <AppBarButton Icon="Help" Label="Help" />
             </CommandBar>
-            <!--<MenuBar Grid.Column="0">
+        -->
+        <!--<MenuBar Grid.Column="0">
                 <MenuBarItem Title="Media" IsTabStop="False">
                     <MenuFlyoutItem x:Uid="ShellMenuItem_File_Exit" Command="{x:Bind ViewModel.MenuFileExitCommand}" />
                 </MenuBarItem>
@@ -85,6 +92,7 @@
                 <MenuBarItem Title="View" />
                 <MenuBarItem Title="Help" />
             </MenuBar>-->
+        <!--
             <AppBarButton x:Name="ShellMenuBarSettingsButton"
                           x:Uid="ShellMenuBarSettingsButton"
                           Grid.Column="1"
@@ -103,9 +111,53 @@
                     </AnimatedIcon.FallbackIconSource>
                 </AnimatedIcon>
             </AppBarButton>
-        </Grid>
-        <Grid Grid.Row="2">
-            <Frame x:Name="NavigationFrame" />
-        </Grid>
+        </Grid>-->
+        <NavigationView x:Name="NavigationViewControl"
+                        Canvas.ZIndex="0"
+                        DisplayModeChanged="NavigationViewControl_DisplayModeChanged"
+                        Header="{x:Bind ((ContentControl)ViewModel.Selected).Content, Mode=OneWay}"
+                        IsBackButtonVisible="Auto"
+                        IsBackEnabled="{x:Bind ViewModel.IsBackEnabled, Mode=OneWay}"
+                        IsPaneToggleButtonVisible="True"
+                        IsSettingsVisible="True"
+                        IsTitleBarAutoPaddingEnabled="True"
+                        PaneDisplayMode="{x:Bind ViewModel.PaneDisplayMode, Mode=OneWay}"
+                        SelectedItem="{x:Bind ViewModel.Selected, Mode=OneWay}">
+            <NavigationView.MenuItems>
+                <NavigationViewItem helpers:NavigationHelper.NavigateTo="WinUIVLC.ViewModels.HomePageViewModel" Content="Home">
+                    <NavigationViewItem.Icon>
+                        <FontIcon Glyph="&#xE80F;" />
+                    </NavigationViewItem.Icon>
+                </NavigationViewItem>
+                <NavigationViewItem helpers:NavigationHelper.NavigateTo="WinUIVLC.ViewModels.VideoPlayerViewModel" Content="Videos">
+                    <NavigationViewItem.Icon>
+                        <FontIcon Glyph="&#xE8B2;" />
+                    </NavigationViewItem.Icon>
+                </NavigationViewItem>
+            </NavigationView.MenuItems>
+
+            <NavigationView.AutoSuggestBox>
+                <AutoSuggestBox PlaceholderText="Search" QueryIcon="Find" />
+            </NavigationView.AutoSuggestBox>
+
+            <i:Interaction.Behaviors>
+                <behaviors:NavigationViewHeaderBehavior DefaultHeader="{x:Bind ((ContentControl)ViewModel.Selected).Content, Mode=OneWay}">
+                    <behaviors:NavigationViewHeaderBehavior.DefaultHeaderTemplate>
+                        <DataTemplate>
+                            <Grid HorizontalAlignment="Stretch">
+                                <TextBlock Margin="0,0,0,0"
+                                           VerticalAlignment="Center"
+                                           Style="{ThemeResource TitleTextBlockStyle}"
+                                           Text="{Binding}" />
+                            </Grid>
+                        </DataTemplate>
+                    </behaviors:NavigationViewHeaderBehavior.DefaultHeaderTemplate>
+                </behaviors:NavigationViewHeaderBehavior>
+            </i:Interaction.Behaviors>
+            <Grid>
+                <Frame x:Name="NavigationFrame" />
+            </Grid>
+
+        </NavigationView>
     </Grid>
 </Page>
