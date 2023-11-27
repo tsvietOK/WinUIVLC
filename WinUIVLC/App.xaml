@@ -9,6 +9,7 @@
                 <ResourceDictionary Source="/Styles/Thickness.xaml" />
                 <ResourceDictionary Source="/Styles/TextBlock.xaml" />
                 <ResourceDictionary Source="/Styles/ControlBackground.xaml" />
+                <ResourceDictionary Source="/Styles/NavigationViewStyles.xaml" />
             </ResourceDictionary.MergedDictionaries>
             <Color x:Key="SystemAccentColorLight1">#FF296FE4</Color>
             <Color x:Key="SystemAccentColorLight2">#FF4684EA</Color>
