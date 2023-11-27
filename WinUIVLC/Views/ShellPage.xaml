@@ -28,18 +28,20 @@
               Height="{Binding ElementName=NavigationViewControl, Path=CompactPaneLength}"
               VerticalAlignment="Top"
               Visibility="{x:Bind ViewModel.IsNotFullScreen, Mode=OneWay, Converter={StaticResource BoolToVisibilityConverter}}">
-            <Image Width="16"
-                   Height="16"
-                   HorizontalAlignment="Left">
-                <Image.Source>
-                    <BitmapImage DecodePixelWidth="32" UriSource="ms-appx:///Assets/VLC_icon.ico" />
-                </Image.Source>
-            </Image>
-            <TextBlock x:Name="AppTitleBarText"
-                       Margin="28,0,0,0"
-                       VerticalAlignment="Center"
-                       Style="{StaticResource CaptionTextBlockStyle}"
-                       TextWrapping="NoWrap" />
+            <StackPanel Orientation="Horizontal" Spacing="16">
+                <Image Width="22"
+                       Height="22"
+                       HorizontalAlignment="Left">
+                    <Image.Source>
+                        <BitmapImage DecodePixelWidth="32" UriSource="ms-appx:///Assets/VLC_icon.ico" />
+                    </Image.Source>
+                </Image>
+                <TextBlock x:Name="AppTitleBarText"
+                           VerticalAlignment="Center"
+                           Style="{StaticResource CaptionTextBlockStyle}"
+                           TextWrapping="NoWrap" />
+            </StackPanel>
+
         </Grid>
         <!--<Grid Grid.Row="1" Visibility="{x:Bind ViewModel.IsNotFullScreen, Mode=OneWay, Converter={StaticResource BoolToVisibilityConverter}}">
             <Grid.ColumnDefinitions>

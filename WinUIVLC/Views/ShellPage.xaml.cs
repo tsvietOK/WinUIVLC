@@ -45,7 +45,7 @@ public sealed partial class ShellPage : Page
 
     private void MainWindow_Activated(object sender, WindowActivatedEventArgs args)
     {
-        App.AppTitlebar = AppTitleBarText as UIElement;
+        App.AppTitlebar = AppTitleBar as UIElement;
     }
 
     private void OnUnloaded(object sender, RoutedEventArgs e)
