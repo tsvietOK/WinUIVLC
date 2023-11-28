@@ -127,6 +127,7 @@
                                            IsPaneToggleButtonVisible="True"
                                            IsSettingsVisible="True"
                                            IsTitleBarAutoPaddingEnabled="True"
+                                           OpenPaneLength="275"
                                            PaneDisplayMode="{x:Bind ViewModel.PaneDisplayMode, Mode=OneWay}"
                                            SelectedItem="{x:Bind ViewModel.Selected, Mode=OneWay}">
             <NavigationView.MenuItems>
